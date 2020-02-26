@@ -1,0 +1,54 @@
+import React from "react";
+
+import formatDate from "../../helpers/formatDate";
+import history from "../../history";
+
+export default function HomeworkCard(props) {
+  return (
+    <div className={props.isLink ? "ui link card" : "ui card"}>
+      <div
+        className="content"
+        onClick={
+          props.isLink
+            ? () => {
+                history.push(`/homework/homework/${props.task.id}`);
+              }
+            : () => {}
+        }
+      >
+        <div className="header">{props.task.subject}</div>
+        <div className="meta">{"Till " + formatDate(props.task.date)}</div>
+        <div className="description">{props.task.title}</div>
+      </div>
+      <div className="ui bottom attached collapsing small icon buttons">
+        <button
+          style={props.task.completed ? { backgroundColor: "grey" } : undefined}
+          className="ui small icon button"
+          onClick={async () => {
+            await props.owner.props.markDone(props.task.id);
+          }}
+        >
+          <i className="check icon"></i>
+        </button>
+        <button
+          className="ui small icon button"
+          id={props.task.id}
+          onClick={() => {
+            history.push(`/homework/homework/${props.task.id}/edit`);
+          }}
+        >
+          <i className="edit icon"></i>
+        </button>
+        <button
+          className="ui small icon button"
+          id={props.task.id}
+          onClick={async () =>
+            await props.owner.props.deleteTask(props.task.id)
+          }
+        >
+          <i className="trash alternate outline icon"></i>
+        </button>
+      </div>
+    </div>
+  );
+}

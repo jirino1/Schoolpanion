@@ -1,0 +1,18 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 20px;
+  background-color: #f0e9d7;
+}
+.ui.button {
+  border: 1pt solid #505050;
+}
+.ui.input {
+  border: 1pt solid #505050;
+  border-radius: 6px;
+  height: 41.65px;
+}
+.ui.link.card {
+  border-top: 1pt solid #505050;
+  border-right: 1pt solid #505050;
+  border-left: 1pt solid #505050;
+}
