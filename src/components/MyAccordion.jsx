@@ -19,7 +19,7 @@ export default class MyAccordion extends Component {
       <Accordion style={{ border: "1pt solid #505050" }} fluid styled>
         {this.props.content.map((content, index) => {
           return (
-            <div>
+            <div key={index}>
               <Accordion.Title
                 active={activeIndex === index}
                 index={index}
