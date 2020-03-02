@@ -55,7 +55,6 @@ class Table extends Component {
       return <div>Loading...</div>;
     }
     const startWeek = addDays(startOfWeek(startOfToday()), 1);
-    console.log(startWeek);
     return (
       <div className={this.props.disabled ? "" : "ui container"}>
         {this.props.disabled ? (
@@ -93,18 +92,15 @@ class Table extends Component {
                   </td>
                   {period.map((subject, index) => {
                     const theDay = addDays(startWeek, index);
-                    console.log(theDay);
                     const task = this.props.tasks.list.find(
                       t => t.subject === subject
                     );
                     let isDisabled = true;
                     if (task) {
-                      console.log(new Date(task.date));
                     }
                     if (task && isSameDay(new Date(task.date), theDay)) {
                       isDisabled = false;
                     }
-                    console.log(isDisabled);
                     return (
                       <Popup
                         key={index}

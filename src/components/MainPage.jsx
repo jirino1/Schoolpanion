@@ -16,8 +16,14 @@ import history from "../history";
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { sortedTasks: null, tasksShown: true, tableShown: false };
-    this.mapSortedTasks = this.mapSortedTasks.bind(this);
+    this.state = {
+      upcomingTasks: null,
+      doneTasks: null,
+      tasksShown: true,
+      tableShown: false
+    };
+    this.mapUpcomingTasks = this.mapUpcomingTasks.bind(this);
+    this.mapDoneTasks = this.mapDoneTasks.bind(this);
   }
 
   async componentDidMount() {
@@ -27,15 +33,22 @@ class MainPage extends Component {
     if (this.props.exams.list === null) {
       await this.props.getExams();
     }
-    this.mapSortedTasks();
+    this.mapUpcomingTasks();
+    this.mapDoneTasks();
   }
-  mapSortedTasks() {
-    this.setState({ sortedTasks: sortByDates(this.props.tasks.list) });
+  mapUpcomingTasks() {
+    let upcomingTasks = sortByDates(this.props.tasks.list);
+    upcomingTasks = upcomingTasks.filter(task => !task.completed);
+    this.setState({ upcomingTasks });
+  }
+  mapDoneTasks() {
+    let doneTasks = sortByDates(this.props.tasks.list);
+    doneTasks = doneTasks.filter(task => task.completed);
+    this.setState({ doneTasks });
   }
 
   render() {
-    console.log(this.state);
-    if (!this.state.sortedTasks) {
+    if (!this.state.upcomingTasks || !this.state.doneTasks) {
       return <div>Loading...</div>;
     }
     return (
@@ -46,11 +59,14 @@ class MainPage extends Component {
         <MyAccordion
           content={[
             this.props.tasks.list.length !== 0
-              ? this.renderTasks(this.state.sortedTasks)
+              ? this.renderTasks(this.state.upcomingTasks)
               : "",
-            <Table disabled />
+            <Table disabled />,
+            this.props.tasks.list.length !== 0
+              ? this.renderTasks(this.state.doneTasks)
+              : ""
           ]}
-          title={["Anstehende Aufgaben", "Stundenplan"]}
+          title={["Anstehende Aufgaben", "Stundenplan", "Erledigte Aufgaben"]}
         ></MyAccordion>
       </div>
     );
@@ -71,6 +87,7 @@ class MainPage extends Component {
           </tr>
         </thead>
         <tbody>
+          {console.log(tasks)}
           {tasks.map(task => {
             const remainingDays = getRemainingDays(task.date);
             return (
@@ -114,8 +131,9 @@ class MainPage extends Component {
                       className="ui small icon button"
                       onClick={async e => {
                         e.stopPropagation();
-                        console.log("BOOM!", e);
                         await this.props.markDone(task.id);
+                        this.mapUpcomingTasks();
+                        this.mapDoneTasks();
                       }}
                     >
                       <i className="check icon"></i>
@@ -141,14 +159,14 @@ class MainPage extends Component {
                         e.stopPropagation();
                         if (task.origin === "homework") {
                           await this.props.deleteTask(task.id);
-                          this.mapSortedTasks();
+                          this.mapUpcomingTasks();
                         } else {
                           await this.props.deleteTaskOfExam(
                             task.examID,
                             task.id
                           );
                           await this.props.deleteTask(task.id);
-                          this.mapSortedTasks();
+                          this.mapUpcomingTasks();
                         }
                       }}
                     >
