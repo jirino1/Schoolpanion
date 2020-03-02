@@ -27,15 +27,12 @@ class Exam extends Component {
   render() {
     const { exam } = this.props.exams;
     const tasks = this.props.tasks.list;
+    const matchID = this.props.match.params.id;
     console.log(exam);
-    if (
-      exam === null ||
-      tasks === null ||
-      exam.id === this.props.match.params.id
-    ) {
-      return <div>Loading...</div>;
-    } else if (exam === undefined) {
+    if (exam === undefined || matchID === undefined) {
       return <div>The Exam you're searching for doesn't exist</div>;
+    } else if (exam === null || tasks === null || exam.id === matchID) {
+      return <div>Loading...</div>;
     } else {
       const { exam } = this.props.exams;
       const tasks = this.props.tasks.list;
