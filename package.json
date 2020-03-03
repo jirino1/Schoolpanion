@@ -1,6 +1,10 @@
 {
-  "name": "to-do",
-  "version": "0.1.0",
+  "name": "myapp",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.13.0"
+  },
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
@@ -26,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "webpack -p"
   },
   "eslintConfig": {
     "extends": "react-app"

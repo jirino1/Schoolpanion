@@ -160,81 +160,87 @@ class CreateExamForm extends Component {
                     {values.tasks && values.tasks.length > 0 ? (
                       <div>
                         {values.tasks.map((task, index) => {
-                          // console.log("task", task)
-                          // console.log("index", index)
                           return (
-                            <div
-                              style={{ display: "flex", marginBottom: "5px" }}
-                              key={index}
-                            >
+                            <div>
+                              <h4
+                                style={{ textAlign: "left" }}
+                                className="ui horizontal divider header"
+                              >
+                                {"Task " + index}
+                              </h4>
                               <div
-                                style={{
-                                  paddingLeft: "0.6px"
-                                }}
-                                className="ui labeled input"
+                                style={{ display: "flex", marginBottom: "5px" }}
+                                key={index}
                               >
-                                <label className="ui label">Title: </label>
-                                <Field
-                                  name={`tasks[${index}].title]`}
-                                  value={task.title || ""}
-                                />
-                              </div>
-                              {errors &&
-                              errors.tasks !== null &&
-                              errors.tasks !== undefined &&
-                              errors.tasks[index] !== null &&
-                              errors.tasks[index] !== undefined &&
-                              typeof errors.tasks[index].title === "string" &&
-                              touched.tasks &&
-                              touched.tasks[index] !== null &&
-                              touched.tasks[index] !== undefined &&
-                              typeof touched.tasks[index].title ===
-                                "boolean" ? (
-                                <span>{errors.tasks[index].title}</span>
-                              ) : null}
-                              <div
-                                style={{
-                                  marginLeft: "5px",
-                                  paddingRight: "0.5px"
-                                }}
-                                className="ui labeled input"
-                              >
-                                <label className="ui label">Date: </label>
-                                <Field
-                                  name={`tasks[${index}].date`}
-                                  type="date"
-                                  value={task.date || ""}
-                                />
-                              </div>
-                              {errors &&
-                              errors.tasks !== null &&
-                              errors.tasks !== undefined &&
-                              errors.tasks[index] !== null &&
-                              errors.tasks[index] !== undefined &&
-                              typeof errors.tasks[index].date === "string" &&
-                              touched.tasks &&
-                              touched.tasks[index] !== null &&
-                              touched.tasks[index] !== undefined &&
-                              typeof touched.tasks[index].date === "boolean" ? (
-                                <span>{errors.tasks[index].date}</span>
-                              ) : null}
-                              <span
-                                style={{
-                                  paddingLeft: "10px",
-                                  alignContent: "bottom"
-                                }}
-                              >
-                                <button
-                                  style={{ height: "100%" }}
-                                  className="ui icon button"
-                                  type="button"
-                                  onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                <div
+                                  style={{
+                                    paddingLeft: "0.6px"
+                                  }}
+                                  className="ui labeled input"
                                 >
-                                  <i className=" trash icon"></i>
-                                </button>
-                              </span>
-
-                              <p />
+                                  <label className="ui label">Title: </label>
+                                  <Field
+                                    name={`tasks[${index}].title]`}
+                                    value={task.title || ""}
+                                  />
+                                </div>
+                                {errors &&
+                                errors.tasks !== null &&
+                                errors.tasks !== undefined &&
+                                errors.tasks[index] !== null &&
+                                errors.tasks[index] !== undefined &&
+                                typeof errors.tasks[index].title === "string" &&
+                                touched.tasks &&
+                                touched.tasks[index] !== null &&
+                                touched.tasks[index] !== undefined &&
+                                typeof touched.tasks[index].title ===
+                                  "boolean" ? (
+                                  <span>{errors.tasks[index].title}</span>
+                                ) : null}
+                                <div
+                                  style={{
+                                    marginLeft: "5px",
+                                    paddingRight: "0.5px"
+                                  }}
+                                  className="ui labeled input"
+                                >
+                                  <label className="ui label">Date: </label>
+                                  <Field
+                                    name={`tasks[${index}].date`}
+                                    type="date"
+                                    value={task.date || ""}
+                                  />
+                                </div>
+                                {errors &&
+                                errors.tasks !== null &&
+                                errors.tasks !== undefined &&
+                                errors.tasks[index] !== null &&
+                                errors.tasks[index] !== undefined &&
+                                typeof errors.tasks[index].date === "string" &&
+                                touched.tasks &&
+                                touched.tasks[index] !== null &&
+                                touched.tasks[index] !== undefined &&
+                                typeof touched.tasks[index].date ===
+                                  "boolean" ? (
+                                  <span>{errors.tasks[index].date}</span>
+                                ) : null}
+                                <span
+                                  style={{
+                                    paddingLeft: "10px",
+                                    alignContent: "bottom"
+                                  }}
+                                >
+                                  <button
+                                    style={{ height: "100%" }}
+                                    className="ui icon button"
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                  >
+                                    <i className=" trash icon"></i>
+                                  </button>
+                                </span>
+                              </div>
+                              <br />
                             </div>
                           );
                         })}
