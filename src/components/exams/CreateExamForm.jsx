@@ -290,7 +290,7 @@ class CreateExamForm extends Component {
     if (!this.props.exams.nextID && !this.props.table.subjects) {
       return <div>Loading...</div>;
     }
-    if (!this.props.table.subjects) {
+    if (!this.props.table.subjects || this.props.table.subject.length === 0) {
       return <div>Add some Subjects in your Timetable!</div>;
     }
     // console.log(this.state);
