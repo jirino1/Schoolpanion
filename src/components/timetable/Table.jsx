@@ -4,7 +4,7 @@ import { getTableData, setTableData, getTasks } from "../../actions";
 import { startOfToday, startOfWeek, addDays } from "date-fns";
 
 import { Popup } from "semantic-ui-react";
-import formatDate from "../../helpers/formatDate";
+import { formatDate } from "../../helpers";
 import { isSameDay } from "date-fns/esm";
 
 class Table extends Component {

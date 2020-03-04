@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getTasks, getTask, markDone, deleteTask } from "../../actions";
-
-import HomeworkCard from "./HomeworkCard";
+import { getRemainingDays, HoverSegment } from "../../helpers";
+import history from "../../history";
 
 class Homework extends Component {
   // constructor(props){
@@ -29,10 +29,49 @@ class Homework extends Component {
     if (task === undefined) {
       return <div>The Homework you're searching for doesn't exist</div>;
     }
-
+    const remainingDays = getRemainingDays(task.date);
     return (
       <div className="ui container">
-        <HomeworkCard task={task} owner={this} />
+        {/* <HomeworkCard task={task} owner={this} /> */}
+        <div className="ui centered header">
+          <h3>
+            {task.subject + "-Homework"}
+            <button
+              className="ui massive icon button"
+              id={task.id}
+              onClick={() => {
+                this.props.deleteTask(task.id);
+                history.push("/homework");
+              }}
+            >
+              <i className="small trash alternate outline icon"></i>
+            </button>
+          </h3>
+        </div>
+        <HoverSegment
+          className="ui segment"
+          onClick={() => {
+            this.props.markDone(task.id);
+          }}
+          style={{
+            backgroundColor: task.completed ? "grey" : "white"
+          }}
+          className="ui segment"
+        >
+          <div>
+            <span
+              style={{ textAlign: "center", float: "left" }}
+              className="meta"
+            >
+              {remainingDays.time + remainingDays.unit}
+            </span>
+            <div className="ui header">
+              <h3 style={{ textAlign: "center" }}>{task.title}</h3>
+            </div>
+          </div>
+
+          <div className="content">{task.description}</div>
+        </HoverSegment>
       </div>
     );
   }

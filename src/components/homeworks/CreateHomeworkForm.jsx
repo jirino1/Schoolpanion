@@ -42,7 +42,8 @@ class CreateHomeworkForm extends Component {
         title: this.state.task,
         subject: this.state.subject,
         date: this.state.date,
-        completed: false
+        completed: false,
+        description: this.state.description ? this.state.description : ""
       };
       await this.props.createTask({ ...homework, origin: "homework" });
       // console.log(homework);
@@ -123,6 +124,13 @@ class CreateHomeworkForm extends Component {
               onChange={this.onTaskChange}
             />
           </div>
+          <br />
+          <textarea
+            onChange={e => {
+              this.setState({ description: e.target.value });
+            }}
+            className="field"
+          ></textarea>
           <br />
           <div className="ui button" onClick={this.onHomeworkSubmit}>
             Create Homework

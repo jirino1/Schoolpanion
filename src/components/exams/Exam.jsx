@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import {
   getTasks,
   markDone,
@@ -8,7 +7,12 @@ import {
   getExam,
   deleteExam
 } from "../../actions";
-import formatDate from "../../helpers/formatDate";
+import {
+  getRemainingDays,
+  HoverSegment,
+  sortByCompleted,
+  sortById
+} from "../../helpers";
 import history from "../../history";
 
 class Exam extends Component {
@@ -34,62 +38,13 @@ class Exam extends Component {
     } else if (exam === null || tasks === null || exam.id === matchID) {
       return <div>Loading...</div>;
     } else {
-      const { exam } = this.props.exams;
-      const tasks = this.props.tasks.list;
       return (
         <div className="ui container">
-          <div className="ui card" key={exam.id}>
-            <div className="content">
-              <div className="header">{exam.subject}</div>
-              <div className="meta">{"Till " + formatDate(exam.date)}</div>
-              <div className="description">
-                <div className="ui relaxed divided list">
-                  {exam.tasks.map(task => {
-                    const handledTask = tasks.find(t => t.id === task);
-                    return (
-                      <div key={task} className="item">
-                        <div className="content">
-                          <button
-                            onClick={() => {
-                              this.props.markDone(task);
-                            }}
-                            style={{
-                              float: "left",
-                              marginRight: "7px",
-                              backgroundColor: "white"
-                            }}
-                            className="ui icon button"
-                          >
-                            <i
-                              className={
-                                handledTask.completed
-                                  ? "large check square icon"
-                                  : "large check square outline icon"
-                              }
-                            ></i>
-                          </button>
-                          <div className="header">{handledTask.title}</div>
-                          <div className="description">
-                            {"Till " + formatDate(handledTask.date)}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-            <div className="ui bottom attached collapsing small icon buttons">
+          <div className="ui centered header">
+            <h1>
+              {exam.subject + "-Exam"}{" "}
               <button
-                className="ui small icon button"
-                onClick={() => {
-                  history.push(`/exams/exam/${exam.id}/edit`);
-                }}
-              >
-                <i className="edit icon"></i>
-              </button>
-              <button
-                className="ui small icon button"
+                className="ui massive icon button"
                 id={exam.id}
                 onClick={() => {
                   for (let i = 0; i < exam.tasks.length; i++) {
@@ -99,10 +54,45 @@ class Exam extends Component {
                   history.push("/exams");
                 }}
               >
-                <i className="trash alternate outline icon"></i>
+                <i className="small trash alternate outline icon"></i>
               </button>
-            </div>
+            </h1>
           </div>
+
+          {sortByCompleted(sortById(tasks)).map((task, index) => {
+            const remainingDays = getRemainingDays(task.date);
+            return (
+              <div key={index}>
+                <div className="ui horizontal divider header">
+                  <h4>{"Task " + (index + 1)}</h4>
+                </div>
+                <HoverSegment
+                  onClick={() => {
+                    this.props.markDone(task.id);
+                  }}
+                  style={{
+                    backgroundColor: task.completed ? "grey" : "white"
+                  }}
+                  className="ui segment"
+                >
+                  <div>
+                    <span
+                      style={{ textAlign: "center", float: "left" }}
+                      className="meta"
+                    >
+                      {remainingDays.time + remainingDays.unit}
+                    </span>
+                    <div className="ui header">
+                      <h3 style={{ textAlign: "center" }}>{task.title}</h3>
+                    </div>
+                  </div>
+
+                  <div className="content">{task.description}</div>
+                </HoverSegment>
+                <br />
+              </div>
+            );
+          })}
         </div>
       );
     }

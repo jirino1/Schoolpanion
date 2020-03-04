@@ -9,7 +9,7 @@ import {
   deleteExam
 } from "../../actions";
 import history from "../../history";
-import formatDate from "../../helpers/formatDate";
+import { formatDate } from "../../helpers";
 
 class ExamList extends Component {
   async componentDidMount() {

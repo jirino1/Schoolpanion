@@ -11,7 +11,6 @@ import CreateExamForm from "./components/exams/CreateExamForm";
 import HomeworkList from "./components/homeworks/HomeworkList";
 import EditExamForm from "./components/exams/EditExamForm";
 import Table from "./components/timetable/Table";
-import Dropzone from "./components/dropzone/Dropzone";
 import history from "./history";
 import MyMenuBar from "./components/MyMenuBar";
 
@@ -30,7 +29,6 @@ function App() {
         <Route path="/exams/exam/:id/edit" exact component={EditExamForm} />
         <Route path="/exams/newExam" component={CreateExamForm} />
         <Route path="/timetable" component={Table} />
-        <Route path="/dropzone" component={Dropzone} />
       </Router>
     </div>
   );

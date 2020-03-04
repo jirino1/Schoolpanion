@@ -1,6 +1,6 @@
 {
-  "name": "myapp",
-  "description": "a really cool app",
+  "name": "schoolpanion",
+  "description": "Der beste Schulbegleiter aller Zeiten MUHAHAHAHAHA!",
   "version": "1.0.0",
   "engines": {
     "node": "12.13.1"
@@ -24,6 +24,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.0.1",
     "typescript": "^3.7.5"
   },
   "scripts": {

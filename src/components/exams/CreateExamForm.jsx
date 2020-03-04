@@ -55,6 +55,7 @@ class CreateExamForm extends Component {
                 subject: values.subject,
                 examID: this.props.exams.nextID
               };
+              console.log(newTask);
               await this.props.createTask(newTask);
               ids.push(idNew + i);
             }
@@ -161,12 +162,27 @@ class CreateExamForm extends Component {
                       <div>
                         {values.tasks.map((task, index) => {
                           return (
-                            <div>
+                            <div key={index}>
                               <h4
                                 style={{ textAlign: "left" }}
                                 className="ui horizontal divider header"
                               >
-                                {"Task " + index}
+                                {"Task " + index}{" "}
+                                <span
+                                  style={{
+                                    paddingLeft: "10px",
+                                    alignContent: "bottom"
+                                  }}
+                                >
+                                  <button
+                                    style={{ height: "100%" }}
+                                    className="ui icon button"
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                  >
+                                    <i className=" trash icon"></i>
+                                  </button>
+                                </span>
                               </h4>
                               <div
                                 style={{ display: "flex", marginBottom: "5px" }}
@@ -224,22 +240,14 @@ class CreateExamForm extends Component {
                                   "boolean" ? (
                                   <span>{errors.tasks[index].date}</span>
                                 ) : null}
-                                <span
-                                  style={{
-                                    paddingLeft: "10px",
-                                    alignContent: "bottom"
-                                  }}
-                                >
-                                  <button
-                                    style={{ height: "100%" }}
-                                    className="ui icon button"
-                                    type="button"
-                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                                  >
-                                    <i className=" trash icon"></i>
-                                  </button>
-                                </span>
                               </div>
+                              <textarea
+                                name={`tasks[${index}].description]`}
+                                value={task.description || ""}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                className="field"
+                              ></textarea>
                               <br />
                             </div>
                           );
@@ -289,18 +297,24 @@ class CreateExamForm extends Component {
   render() {
     if (!this.props.exams.nextID && !this.props.table.subjects) {
       return <div>Loading...</div>;
-    }
-    if (!this.props.table.subjects || this.props.table.subject.length === 0) {
+    } else if (!this.props.exams.nextID) {
+      return <div>Loading...</div>;
+    } else if (
+      !this.props.table.subjects ||
+      this.props.table.subjects.length === 0
+    ) {
       return <div>Add some Subjects in your Timetable!</div>;
     }
     // console.log(this.state);
     // console.log(this.props);
-    return (
-      <div className="ui container">
-        <h1 className="ui header">Create an Exam</h1>
-        {this.myForm()}
-      </div>
-    );
+    else {
+      return (
+        <div className="ui container">
+          <h1 className="ui header">Create an Exam</h1>
+          {this.myForm()}
+        </div>
+      );
+    }
   }
 }
 

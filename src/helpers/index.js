@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export function formatDate(date) {
   const splittedDate = date.split("-");
   splittedDate.map(d => {
@@ -12,6 +14,23 @@ export function formatDate(date) {
   });
   return formattedDate;
 }
+export function sortByCompleted(tasks) {
+  let sortedTasks = tasks.sort(function(a, b) {
+    a = a.completed;
+    b = b.completed;
+    return a === b ? 0 : a ? 1 : -1;
+  });
+  return sortedTasks;
+}
+export function sortById(tasks) {
+  let sortedTasks = tasks.sort(function(a, b) {
+    a = a.id;
+    b = b.id;
+    return a - b;
+  });
+  return sortedTasks;
+}
+
 export function sortByDates(tasks) {
   let sortedTasks = tasks.sort(function(a, b) {
     a = a.date.split("-").join("");
@@ -38,3 +57,11 @@ export function getRemainingDays(date) {
   }
   return timeDifference;
 }
+export const HoverSegment = styled.div`
+  color: #000;
+  :hover {
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12),
+      0 2px 10px 0 rgba(34, 36, 38, 0.15);
+  }
+`;
