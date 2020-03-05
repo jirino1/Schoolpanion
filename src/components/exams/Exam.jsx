@@ -41,22 +41,34 @@ class Exam extends Component {
       return (
         <div className="ui container">
           <div className="ui centered header">
-            <h1>
-              {exam.subject + "-Exam"}{" "}
-              <button
-                className="ui massive icon button"
-                id={exam.id}
-                onClick={() => {
-                  for (let i = 0; i < exam.tasks.length; i++) {
-                    this.props.deleteTask(exam.tasks[i]);
-                  }
-                  this.props.deleteExam(exam.id);
-                  history.push("/exams");
-                }}
-              >
-                <i className="small trash alternate outline icon"></i>
-              </button>
-            </h1>
+            <h3>
+              {exam.subject + "-Exam"}
+              <div className="ui icon buttons">
+                <button
+                  className="ui small icon button"
+                  id={exam.id}
+                  onClick={() => {
+                    history.push(`/exams/exam/${exam.id}/edit`);
+                  }}
+                >
+                  <i className="edit icon"></i>
+                </button>
+                <button
+                  className="ui icon button"
+                  id={exam.id}
+                  onClick={() => {
+                    for (let i = 0; i < exam.tasks.length; i++) {
+                      this.props.deleteTask(exam.tasks[i]);
+                    }
+                    this.props.deleteExam(exam.id);
+                    history.push("/exams");
+                  }}
+                >
+                  <i className="small trash alternate outline icon"></i>
+                </button>
+                {/* MUSS NOCH IN ICON BUTTONS GEMACHT WERDEN */}
+              </div>
+            </h3>
           </div>
 
           {sortByCompleted(sortById(tasks)).map((task, index) => {
@@ -89,6 +101,16 @@ class Exam extends Component {
 
                   <div className="content">{task.description}</div>
                 </HoverSegment>
+
+                <button
+                  className="ui right attached icon button"
+                  onClick={() => {
+                    this.props.deleteTask(task.id);
+                  }}
+                >
+                  <i className="trash alternate outline icon"></i>
+                </button>
+
                 <br />
               </div>
             );

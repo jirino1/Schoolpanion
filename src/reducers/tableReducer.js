@@ -1,6 +1,7 @@
 const initialState = {
   tableData: null,
-  subjects: null
+  subjects: null,
+  times: null
 };
 
 export default (state = initialState, action) => {
@@ -9,7 +10,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tableData: action.payload.tableData,
-        subjects: action.payload.subjects
+        subjects: action.payload.subjects,
+        times: action.payload.times
       };
     case "SET_TABLEDATA":
       let newTable = state.tableData;
@@ -43,6 +45,10 @@ export default (state = initialState, action) => {
         return { ...state, tableData: newTable };
       }
       return state;
+    case "SET_TIMES":
+      let newTimes = state.times;
+      newTimes[action.payload.hour] = action.payload.time;
+      return { ...state, times: newTimes };
 
     default:
       return state;

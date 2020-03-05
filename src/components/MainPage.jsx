@@ -54,7 +54,7 @@ class MainPage extends Component {
     return (
       <div className="ui container">
         <header style={{ textAlign: "center" }} className="ui header">
-          <h1>Willkommen zurück, DAU!</h1>
+          <h1>Willkommen zurück!</h1>
         </header>
         <MyAccordion
           content={[

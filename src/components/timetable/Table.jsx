@@ -1,34 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTableData, setTableData, getTasks } from "../../actions";
+import { getTableData, setTableData, getTasks, setTimes } from "../../actions";
 import { startOfToday, startOfWeek, addDays } from "date-fns";
-
-import { Popup } from "semantic-ui-react";
-import { formatDate } from "../../helpers";
+// import TimePicker from "react-time-picker";
 import { isSameDay } from "date-fns/esm";
+import { Popup } from "semantic-ui-react";
+
+import { formatDate, generateFalseArray } from "../../helpers";
+import DoubleClickInput from "./DoubleClickInput";
 
 class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
       days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      isDoubleClickedArray: [
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false],
-        [false, false, false, false, false]
-      ]
+      isDoubleClickedArray: generateFalseArray(11, 5),
+      timeDoubleClicks: generateFalseArray(11, 1)
     };
+    this.refOne = React.createRef();
+    this.refTwo = React.createRef();
   }
   async componentDidMount() {
-    if (!this.props.table.tableData) {
+    if (!this.props.table.tableData || !this.props.table.times) {
       await this.props.getTableData();
     }
     if (!this.props.tasks.list) {
@@ -51,7 +44,12 @@ class Table extends Component {
     return { time1, time2 };
   }
   render() {
-    if (!this.props.table.tableData || !this.props.tasks.list) {
+    console.log(this.state.timeDoubleClicks);
+    if (
+      !this.props.table.tableData ||
+      !this.props.tasks.list ||
+      !this.props.table.times
+    ) {
       return <div>Loading...</div>;
     }
     const startWeek = addDays(startOfWeek(startOfToday()), 1);
@@ -67,6 +65,12 @@ class Table extends Component {
           </header>
         )}
         <table
+          onClick={e =>
+            this.setState({
+              isDoubleClickedArray: generateFalseArray(11, 5),
+              timeDoubleClicks: generateFalseArray(11, 1)
+            })
+          }
           style={{ textAlign: "center" }}
           className="ui unstackable fixed celled table"
         >
@@ -81,14 +85,68 @@ class Table extends Component {
           <tbody>
             {this.props.table.tableData.map((period, index) => {
               let hour = index;
+              let times = this.props.table.times[hour];
+
               return (
                 <tr key={index + 1}>
-                  <td className="ui collapsing cell" key={0}>
+                  <td
+                    onClick={e => {
+                      if (this.state.timeDoubleClicks[hour]) {
+                        e.stopPropagation();
+                      }
+                    }}
+                    className="ui cell"
+                    key={0}
+                    onDoubleClick={
+                      this.props.disabled
+                        ? undefined
+                        : () => {
+                            let newDoubleClicks = this.state.timeDoubleClicks;
+                            newDoubleClicks[hour] = true;
+                            this.setState({
+                              timeDoubleClicks: newDoubleClicks
+                            });
+                          }
+                    }
+                  >
                     <b>{index + 1 + "."}</b>
                     <br />
-                    {this.getTableTime(index).time1 +
+                    {/* {this.getTableTime(index).time1 +
                       "-" +
-                      this.getTableTime(index).time2}
+                      this.getTableTime(index).time2} */
+                    this.state.timeDoubleClicks[hour] ? (
+                      <div
+                        style={{ width: "90%", height: "30%" }}
+                        className="ui small inputs"
+                      >
+                        <DoubleClickInput
+                          ref={this.refOne}
+                          autoFocus
+                          type="time"
+                          name={"time1"}
+                          defaultValue={times.time1}
+                          owner={this}
+                          hour={hour}
+                        />
+                        <br />
+                        <div>-</div>
+                        <DoubleClickInput
+                          ref={this.refTwo}
+                          className="ui small input"
+                          type="time"
+                          name={"time2"}
+                          defaultValue={times.time2}
+                          owner={this}
+                          hour={hour}
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        {times.time1 && times.time2
+                          ? times.time1 + " - " + times.time2
+                          : "???"}
+                      </div>
+                    )}
                   </td>
                   {period.map((subject, index) => {
                     const theDay = addDays(startWeek, index);
@@ -129,6 +187,13 @@ class Table extends Component {
                         disabled={isDisabled}
                         trigger={
                           <td
+                            onClick={e => {
+                              if (
+                                this.state.isDoubleClickedArray[hour][index]
+                              ) {
+                                e.stopPropagation();
+                              }
+                            }}
                             style={
                               isDisabled
                                 ? {}
@@ -157,43 +222,17 @@ class Table extends Component {
                                 style={{ width: "100%" }}
                                 className="ui input"
                               >
-                                <input
+                                <DoubleClickInput
                                   autoFocus
                                   type="text"
-                                  placeholder={"Subject..."}
                                   defaultValue={
                                     this.props.table.tableData[hour][index]
                                       ? this.props.table.tableData[hour][index]
                                       : ""
                                   }
-                                  onBlur={async e => {
-                                    await this.props.setTableData(
-                                      hour,
-                                      index,
-                                      e.target.value
-                                    );
-                                    let newDoubleClicks = this.state
-                                      .isDoubleClickedArray;
-                                    newDoubleClicks[hour][index] = false;
-                                    this.setState({
-                                      isDoubleClickedArray: newDoubleClicks
-                                    });
-                                  }}
-                                  onKeyPress={async e => {
-                                    if (e.key === "Enter") {
-                                      await this.props.setTableData(
-                                        hour,
-                                        index,
-                                        e.target.value
-                                      );
-                                      let newDoubleClicks = this.state
-                                        .isDoubleClickedArray;
-                                      newDoubleClicks[hour][index] = false;
-                                      this.setState({
-                                        isDoubleClickedArray: newDoubleClicks
-                                      });
-                                    }
-                                  }}
+                                  hour={hour}
+                                  index={index}
+                                  owner={this}
                                 />
                               </div>
                             ) : (
@@ -222,7 +261,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   getTableData,
   setTableData,
-  getTasks
+  getTasks,
+  setTimes
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -36,16 +36,28 @@ class Homework extends Component {
         <div className="ui centered header">
           <h3>
             {task.subject + "-Homework"}
-            <button
-              className="ui massive icon button"
-              id={task.id}
-              onClick={() => {
-                this.props.deleteTask(task.id);
-                history.push("/homework");
-              }}
-            >
-              <i className="small trash alternate outline icon"></i>
-            </button>
+            <div className="ui icon buttons">
+              <button
+                className="ui icon button"
+                id={task.id}
+                onClick={() => {
+                  this.props.deleteTask(task.id);
+                  history.push("/homework");
+                }}
+              >
+                <i className="small trash alternate outline icon"></i>
+              </button>
+              {/* MUSS NOCH IN ICON BUTTONS GEMACHT WERDEN */}
+              <button
+                className="ui small icon button"
+                id={task.id}
+                onClick={() => {
+                  history.push(`/homework/homework/${task.id}/edit`);
+                }}
+              >
+                <i className="edit icon"></i>
+              </button>
+            </div>
           </h3>
         </div>
         <HoverSegment

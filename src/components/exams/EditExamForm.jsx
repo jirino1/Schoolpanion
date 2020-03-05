@@ -41,6 +41,15 @@ class EditExamForm extends Component {
     }
     return taskArray;
   }
+  // theBoolean(values) {
+  //   let b = true;
+  //   for (let i = 0; i < values.length; i++) {
+  //     if (!values[i]) {
+  //       b = false;
+  //     }
+  //   }
+  //   return b;
+  // }
   myForm() {
     return (
       <div>
@@ -131,6 +140,7 @@ class EditExamForm extends Component {
                 render={arrayHelpers => (
                   <div>
                     {values.tasks && values.tasks.length > 0 ? (
+                      // && this.theBoolean(values)
                       values.tasks.map((task, index) => (
                         <div key={index}>
                           <div className="ui labeled input">

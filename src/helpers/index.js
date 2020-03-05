@@ -51,7 +51,9 @@ export function getRemainingDays(date) {
   };
   if (timeDifference.time === 0) {
     timeDifference = {
-      time: Math.floor((unixtime - currentTime) / 60 / 60),
+      time:
+        Math.floor((unixtime - currentTime) / 60 / 60) +
+        8 /*8 Uhr als "durchschnittliche Uhrzeit" */,
       unit: "h"
     };
   }
@@ -65,3 +67,19 @@ export const HoverSegment = styled.div`
       0 2px 10px 0 rgba(34, 36, 38, 0.15);
   }
 `;
+export function generateFalseArray(length, width) {
+  let a = [];
+  if (width !== 1) {
+    for (let i = 0; i < length; i++) {
+      a.push([]);
+      for (let j = 0; j < width; j++) {
+        a[i].push(false);
+      }
+    }
+  } else {
+    for (let i = 0; i < length; i++) {
+      a.push(false);
+    }
+  }
+  return a;
+}
