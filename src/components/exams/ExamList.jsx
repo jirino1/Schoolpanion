@@ -92,10 +92,7 @@ class ExamList extends Component {
                   className="ui small icon button"
                   id={exam.id}
                   onClick={() => {
-                    for (let i = 0; i < exam.tasks.length; i++) {
-                      this.props.deleteTask(exam.tasks[i]);
-                    }
-                    this.props.deleteExam(exam.id);
+                    history.push(`/exams/exam/${exam.id}/delete`);
                   }}
                 >
                   <i className="trash alternate outline icon"></i>

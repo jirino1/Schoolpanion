@@ -39,7 +39,7 @@ class HomeworkList extends Component {
 
   async deleteTask(event) {
     const id = event.target.id;
-    await this.props.deleteTask(id);
+    history.push(`/homework/homework/${id}/delete`);
   }
 
   render() {

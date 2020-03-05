@@ -157,17 +157,8 @@ class MainPage extends Component {
                       id={task.id}
                       onClick={async e => {
                         e.stopPropagation();
-                        if (task.origin === "homework") {
-                          await this.props.deleteTask(task.id);
-                          this.mapUpcomingTasks();
-                        } else {
-                          await this.props.deleteTaskOfExam(
-                            task.examID,
-                            task.id
-                          );
-                          await this.props.deleteTask(task.id);
-                          this.mapUpcomingTasks();
-                        }
+                        history.push(`/homework/homework/${task.id}/delete`);
+                        // this.mapUpcomingTasks();
                       }}
                     >
                       <i className="trash alternate outline icon"></i>

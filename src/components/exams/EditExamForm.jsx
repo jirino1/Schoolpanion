@@ -31,6 +31,19 @@ class EditExamForm extends Component {
     }
     await this.props.getNextId();
   }
+  optionmapper() {
+    // console.log(this.props.table.subjects);
+    let subjects = [];
+    for (let i = 0; i < this.props.table.subjects.length; i++) {
+      subjects.push({
+        text: this.props.table.subjects[i],
+        key: i,
+        value: this.props.table.subjects[i]
+      });
+    }
+    // console.log(subjects);
+    return subjects;
+  }
   mapTasks(tasks) {
     if (!tasks) {
       return [];
@@ -135,60 +148,118 @@ class EditExamForm extends Component {
                 {errors.date && touched.date && errors.date}
               </div>
               <p />
-              <FieldArray
-                name="tasks"
-                render={arrayHelpers => (
+              <h3 className="ui header">Add Tasks</h3>
+              <FieldArray name="tasks">
+                {arrayHelpers => (
                   <div>
                     {values.tasks && values.tasks.length > 0 ? (
-                      // && this.theBoolean(values)
-                      values.tasks.map((task, index) => (
-                        <div key={index}>
-                          <div className="ui labeled input">
-                            <label className="ui label">Title: </label>
-                            <Field
-                              className="ui input"
-                              name={`tasks.[${index}].title]`}
-                              value={task.title || ""}
-                            />
-                          </div>
-                          {/* {errors.tasks[index].title && touched.tasks[index].title && errors.tasks[index].title} */}
-                          <div
-                            style={{ marginLeft: "5px" }}
-                            className="ui labeled input"
+                      <div>
+                        {values.tasks.map((task, index) => {
+                          return (
+                            <div key={index}>
+                              <h4
+                                style={{ textAlign: "left" }}
+                                className="ui horizontal divider header"
+                              >
+                                {"Task " + index}{" "}
+                                <span
+                                  style={{
+                                    paddingLeft: "10px",
+                                    alignContent: "bottom"
+                                  }}
+                                >
+                                  <button
+                                    style={{ height: "100%" }}
+                                    className="ui icon button"
+                                    type="button"
+                                    onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                  >
+                                    <i className=" trash icon"></i>
+                                  </button>
+                                </span>
+                              </h4>
+                              <div
+                                style={{ display: "flex", marginBottom: "5px" }}
+                                key={index}
+                              >
+                                <div
+                                  style={{
+                                    paddingLeft: "0.6px"
+                                  }}
+                                  className="ui labeled input"
+                                >
+                                  <label className="ui label">Title: </label>
+                                  <Field
+                                    name={`tasks[${index}].title]`}
+                                    value={task.title || ""}
+                                  />
+                                </div>
+                                {errors &&
+                                errors.tasks !== null &&
+                                errors.tasks !== undefined &&
+                                errors.tasks[index] !== null &&
+                                errors.tasks[index] !== undefined &&
+                                typeof errors.tasks[index].title === "string" &&
+                                touched.tasks &&
+                                touched.tasks[index] !== null &&
+                                touched.tasks[index] !== undefined &&
+                                typeof touched.tasks[index].title ===
+                                  "boolean" ? (
+                                  <span>{errors.tasks[index].title}</span>
+                                ) : null}
+                                <div
+                                  style={{
+                                    marginLeft: "5px",
+                                    paddingRight: "0.5px"
+                                  }}
+                                  className="ui labeled input"
+                                >
+                                  <label className="ui label">Date: </label>
+                                  <Field
+                                    name={`tasks[${index}].date`}
+                                    type="date"
+                                    value={task.date || ""}
+                                  />
+                                </div>
+                                {errors &&
+                                errors.tasks !== null &&
+                                errors.tasks !== undefined &&
+                                errors.tasks[index] !== null &&
+                                errors.tasks[index] !== undefined &&
+                                typeof errors.tasks[index].date === "string" &&
+                                touched.tasks &&
+                                touched.tasks[index] !== null &&
+                                touched.tasks[index] !== undefined &&
+                                typeof touched.tasks[index].date ===
+                                  "boolean" ? (
+                                  <span>{errors.tasks[index].date}</span>
+                                ) : null}
+                              </div>
+                              <textarea
+                                name={`tasks[${index}].description]`}
+                                value={task.description || ""}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                className="field"
+                              ></textarea>
+                              <br />
+                            </div>
+                          );
+                        })}
+                        <p />
+                        <div>
+                          <button
+                            className="ui button"
+                            type="button"
+                            onClick={() =>
+                              arrayHelpers.push({ title: "", date: "" })
+                            }
                           >
-                            <label className="ui label">Date: </label>
-                            <Field
-                              name={`tasks.[${index}].date`}
-                              type="date"
-                              value={task.date || ""}
-                            />
-                          </div>
-                          <div className="ui icon buttons">
-                            <button
-                              className="ui icon button"
-                              type="button"
-                              onClick={async () => {
-                                arrayHelpers.remove(index);
-                              }} // remove a friend from the list
-                            >
-                              <i className="minus icon"></i>
-                            </button>
-                            <button
-                              className=" right attached ui icon button"
-                              type="button"
-                              onClick={() =>
-                                arrayHelpers.insert(index + 1, {
-                                  title: "",
-                                  date: ""
-                                })
-                              } // insert an empty string at a position
-                            >
-                              <i className="ui plus icon" />
-                            </button>
-                          </div>
-                          <p />
+                            {/* show this when user has removed all friends from the list */}
+                            Add Tasks
+                          </button>
                         </div>
-                      ))
+                      </div>
                     ) : (
                       <button
                         className="ui button"
@@ -209,7 +280,7 @@ class EditExamForm extends Component {
                     </div>
                   </div>
                 )}
-              />
+              </FieldArray>
             </Form>
           )}
         />

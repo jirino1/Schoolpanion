@@ -41,8 +41,7 @@ class Homework extends Component {
                 className="ui icon button"
                 id={task.id}
                 onClick={() => {
-                  this.props.deleteTask(task.id);
-                  history.push("/homework");
+                  history.push(`/homework/homework/${task.id}/delete`);
                 }}
               >
                 <i className="small trash alternate outline icon"></i>
@@ -68,7 +67,6 @@ class Homework extends Component {
           style={{
             backgroundColor: task.completed ? "grey" : "white"
           }}
-          className="ui segment"
         >
           <div>
             <span

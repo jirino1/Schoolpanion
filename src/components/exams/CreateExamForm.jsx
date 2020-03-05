@@ -167,7 +167,7 @@ class CreateExamForm extends Component {
                                 style={{ textAlign: "left" }}
                                 className="ui horizontal divider header"
                               >
-                                {"Task " + index}{" "}
+                                {"Task " + (index + 1)}{" "}
                                 <span
                                   style={{
                                     paddingLeft: "10px",

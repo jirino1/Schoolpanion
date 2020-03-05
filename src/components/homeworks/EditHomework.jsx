@@ -20,7 +20,13 @@ class EditHomework extends Component {
     const { id } = this.props.match.params;
     await this.props.getTask(id);
     const { task } = this.props.tasks;
-    this.setState({ subject: task.subject, date: task.date, task: task.title });
+    if (task) {
+      this.setState({
+        subject: task.subject,
+        date: task.date,
+        task: task.title
+      });
+    }
   }
   async onHomeworkSubmit() {
     if (this.state.task === null) {
@@ -58,6 +64,9 @@ class EditHomework extends Component {
   }
 
   render() {
+    if (this.props.tasks.task === undefined) {
+      return <div>This Task doesn't exist!</div>;
+    }
     if (this.props.tasks.task === null) {
       return <div>Loading...</div>;
     }

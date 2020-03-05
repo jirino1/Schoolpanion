@@ -43,7 +43,7 @@ export default function HomeworkCard(props) {
           className="ui small icon button"
           id={props.task.id}
           onClick={async () =>
-            await props.owner.props.deleteTask(props.task.id)
+            history.push(`/homework/homework/${props.task.id}/delete`)
           }
         >
           <i className="trash alternate outline icon"></i>
