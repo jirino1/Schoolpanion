@@ -44,6 +44,7 @@ class Table extends Component {
     return { time1, time2 };
   }
   render() {
+    console.log(this.props);
     console.log(this.state.timeDoubleClicks);
     if (
       !this.props.table.tableData ||
@@ -124,7 +125,7 @@ class Table extends Component {
                           autoFocus
                           type="time"
                           name={"time1"}
-                          defaultValue={times.time1}
+                          defaultValue={times ? times.time1 : ""}
                           owner={this}
                           hour={hour}
                         />
@@ -135,14 +136,14 @@ class Table extends Component {
                           className="ui small input"
                           type="time"
                           name={"time2"}
-                          defaultValue={times.time2}
+                          defaultValue={times ? times.time2 : ""}
                           owner={this}
                           hour={hour}
                         />
                       </div>
                     ) : (
                       <div>
-                        {times.time1 && times.time2
+                        {times && times.time1 && times.time2
                           ? times.time1 + " - " + times.time2
                           : "???"}
                       </div>

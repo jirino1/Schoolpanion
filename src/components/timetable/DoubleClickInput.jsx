@@ -26,19 +26,21 @@ const DoubleClickInput = React.forwardRef((props, ref) => {
         }
       }}
       onChange={async e => {
-        let time =
-          props.name === "time1"
-            ? {
-                ...times,
-                time1: e.target.value
-              }
-            : props.name === "time2"
-            ? {
-                ...times,
-                time2: e.target.value
-              }
-            : undefined;
-        await props.owner.props.setTimes(props.hour, time);
+        if (props.type === "time") {
+          let time =
+            props.name === "time1"
+              ? {
+                  ...times,
+                  time1: e.target.value
+                }
+              : props.name === "time2"
+              ? {
+                  ...times,
+                  time2: e.target.value
+                }
+              : undefined;
+          await props.owner.props.setTimes(props.hour, time);
+        }
       }}
       onKeyPress={async e => {
         if (e.key === "Enter") {
