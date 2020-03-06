@@ -1,136 +1,192 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { editTask, getTasks, getTask } from "../../actions";
+import { editTask, getTask } from "../../actions";
 import history from "../../history";
+import { Dropdown } from "semantic-ui-react";
+import Modal from "../Modal";
+import { noSubjects } from "../../helpers";
+import HelpButton from "../HelpButton";
 
 class EditHomework extends Component {
   constructor(props) {
     super(props);
-    this.state = { subject: "Subject...", date: "Due To...", task: "Task..." };
+    this.state = { subject: null, date: null, title: null };
     this.onHomeworkSubmit = this.onHomeworkSubmit.bind(this);
-    this.onSubjectChange = this.onSubjectChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onTaskChange = this.onTaskChange.bind(this);
+    this.optionmapper = this.optionmapper.bind(this);
   }
   async componentDidMount() {
-    if (this.props.tasks.list === null) {
-      await this.props.getTasks();
+    await this.props.getTask(this.props.match.params.id);
+    if (this.props.table.subjects === null) {
+      await this.props.getTableData();
     }
-    const { id } = this.props.match.params;
-    await this.props.getTask(id);
+  }
+  componentDidUpdate() {
     const { task } = this.props.tasks;
-    if (task) {
+    if (
+      this.state.title === null &&
+      this.state.subject === null &&
+      this.state.date === null
+    ) {
       this.setState({
         subject: task.subject,
         date: task.date,
-        task: task.title
+        title: task.title,
+        description: task.description
       });
     }
   }
   async onHomeworkSubmit() {
-    if (this.state.task === null) {
+    if (!this.state.title) {
       this.setState({ emptyTask: true });
     }
-    if (this.state.subject === null) {
+    if (!this.state.subject) {
       this.setState({ emptySubject: true });
     }
-    if (this.state.date === null) {
+    if (!this.state.date) {
       this.setState({ emptyDate: true });
     }
-    if (
-      this.state.task !== null &&
-      this.state.subject !== null &&
-      this.state.date !== null
-    ) {
+    if (this.state.title && this.state.subject && this.state.date) {
       const homework = {
-        title: this.state.task,
+        title: this.state.title,
         subject: this.state.subject,
-        date: this.state.date
+        date: this.state.date,
+        completed: false,
+        description: this.state.description ? this.state.description : ""
       };
-      await this.props.editTask(this.props.tasks.task.id, homework);
+      await this.props.editTask(this.props.match.params.id, {
+        ...homework,
+        origin: "homework"
+      });
       history.push("/homework");
     }
   }
 
-  onSubjectChange(event) {
-    this.setState({ subject: event.target.value });
-  }
+  handleChange = (e, { value }) => this.setState({ subject: value });
   onDateChange(event) {
     this.setState({ date: event.target.value });
   }
   onTaskChange(event) {
-    this.setState({ task: event.target.value });
+    this.setState({ title: event.target.value });
+  }
+  optionmapper() {
+    // console.log(this.props.table.subjects);
+    let subjects = [];
+    for (let i = 0; i < this.props.table.subjects.length; i++) {
+      subjects.push({
+        text: this.props.table.subjects[i],
+        key: i,
+        value: this.props.table.subjects[i]
+      });
+    }
+    // console.log(subjects);
+    return subjects;
   }
 
   render() {
-    if (this.props.tasks.task === undefined) {
-      return <div>This Task doesn't exist!</div>;
+    const { task } = this.props.tasks;
+    console.log(this.state);
+    if (
+      !this.props.table.subjects ||
+      !task ||
+      task.id !== parseInt(this.props.match.params.id)
+    ) {
+      return <div>Lädt...</div>;
+    } else if (
+      !this.props.table.subjects ||
+      this.props.table.subjects.length === 0
+    ) {
+      return (
+        <Modal
+          title="Ups!"
+          content={noSubjects()}
+          onDismiss={() => {
+            history.push("/timetable");
+          }}
+          actions={HelpButton({ icon: false })}
+        ></Modal>
+      );
+    } else {
+      // console.log(this.state);
+      return (
+        <div className="ui container">
+          <header className="ui header">
+            <h1>{+task.subject + "-Aufgabe bearbeiten"}</h1>
+          </header>
+          <div className="ui labeled input">
+            <div className="ui label">Fach: </div>
+            <Dropdown
+              defaultValue={task.subject}
+              search
+              selection
+              options={this.optionmapper()}
+              onChange={this.handleChange}
+            />
+          </div>
+          <br />
+          <div
+            className={
+              this.state.emptyDate
+                ? "ui labeled input error"
+                : "ui labeled input"
+            }
+            style={{ marginTop: "5px", marginBottom: "5px" }}
+          >
+            <div className="ui label">Datum: </div>
+            <input
+              type="date"
+              placeholder="Due to"
+              defaultValue={task.date}
+              onChange={this.onDateChange}
+            />
+          </div>
+          <br />
+          <div
+            className={
+              this.state.emptyTask
+                ? "ui labeled input error"
+                : "ui labeled input"
+            }
+            style={{ marginBottom: "5px" }}
+          >
+            <div className="ui label">Titel: </div>
+            <input
+              type="text"
+              placeholder="Title"
+              defaultValue={task.title}
+              onChange={this.onTaskChange}
+            />
+          </div>
+          <br />
+          <textarea
+            defaultValue={task.description}
+            onChange={e => {
+              this.setState({ description: e.target.value });
+            }}
+            className="field"
+          ></textarea>
+          <br />
+          <div className="ui button" onClick={this.onHomeworkSubmit}>
+            Aufgabe bearbeiten
+          </div>
+        </div>
+      );
     }
-    if (this.props.tasks.task === null) {
-      return <div>Loading...</div>;
-    }
-    // console.log(this.props);
-    return (
-      <div className="ui container">
-        <div
-          className={
-            this.state.emptySubject
-              ? "ui labeled input error"
-              : "ui labeled input"
-          }
-        >
-          <div className="ui label">Subject: </div>
-          <input
-            type="text"
-            value={this.state.subject}
-            onChange={this.onSubjectChange}
-          />
-        </div>
-        <br />
-        <div
-          className={
-            this.state.emptyDate ? "ui labeled input error" : "ui labeled input"
-          }
-        >
-          <div className="ui label">Due to: </div>
-          <input
-            type="date"
-            value={this.state.date}
-            onChange={this.onDateChange}
-          />
-        </div>
-        <br />
-        <div
-          className={
-            this.state.emptyTask ? "ui labeled input error" : "ui labeled input"
-          }
-        >
-          <div className="ui label">Task: </div>
-          <input
-            type="text"
-            value={this.state.task}
-            onChange={this.onTaskChange}
-          />
-        </div>
-        <br />
-        <div className="ui button" onClick={this.onHomeworkSubmit}>
-          Submit changes
-        </div>
-      </div>
-    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    table: state.table
   };
 };
 
 const mapDispatchToProps = {
   editTask: editTask,
-  getTasks: getTasks,
   getTask: getTask
 };
 

@@ -14,6 +14,7 @@ import {
   sortById
 } from "../../helpers";
 import history from "../../history";
+import Modal from "../Modal";
 
 class Exam extends Component {
   async componentDidMount() {
@@ -34,9 +35,17 @@ class Exam extends Component {
     const matchID = this.props.match.params.id;
     console.log(exam);
     if (exam === undefined || matchID === undefined) {
-      return <div>The Exam you're searching for doesn't exist</div>;
+      return (
+        <Modal
+          title="Fehler"
+          content="Die Klausur die sie suchen existiert nicht"
+          onDismiss={() => {
+            history.goBack();
+          }}
+        ></Modal>
+      );
     } else if (exam === null || tasks === null || exam.id === matchID) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     } else {
       return (
         <div className="ui container">

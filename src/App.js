@@ -15,6 +15,8 @@ import Table from "./components/timetable/Table";
 import history from "./history";
 import MyMenuBar from "./components/MyMenuBar";
 import DeleteTask from "./components/homeworks/DeleteTask";
+import Help from "./components/Help";
+import Reset from "./components/Reset";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
       <MyMenuBar />
       <Router history={history}>
         <Route path="/" exact component={MainPage} />
+        <Route path="/help" exact component={Help} />
+        <Route path="/reset" exact component={Reset} />
         <Route path="/homework" exact component={HomeworkList} />
         <Route path="/homework/homework/:id" exact component={Homework} />
         <Route path="/homework/homework/:id/edit" component={EditHomework} />

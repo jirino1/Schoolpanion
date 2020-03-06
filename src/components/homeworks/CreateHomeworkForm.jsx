@@ -4,6 +4,9 @@ import { Dropdown } from "semantic-ui-react";
 
 import { createTask, getTasks, getTableData } from "../../actions";
 import history from "../../history";
+import { noSubjects } from "../../helpers";
+import Modal from "../Modal";
+import HelpButton from "../HelpButton";
 
 class CreateHomeworkForm extends Component {
   constructor(props) {
@@ -75,15 +78,29 @@ class CreateHomeworkForm extends Component {
   render() {
     console.log(this.state);
     if (!this.props.table.subjects) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
+    } else if (
+      !this.props.table.subjects ||
+      this.props.table.subjects.length === 0
+    ) {
+      return (
+        <Modal
+          title="Ups!"
+          content={noSubjects()}
+          onDismiss={() => {
+            history.push("/timetable");
+          }}
+          actions={HelpButton({ icon: false })}
+        ></Modal>
+      );
     } else {
       // console.log(this.state);
       return (
         <div className="ui container">
           <header className="ui header">
-            <h1>Create a Homework</h1>
+            <h1>Hausaufgabe erstellen</h1>
           </header>
-          <div className="ui label">Subject: </div>
+          <div className="ui label">Fach: </div>
           <Dropdown
             placeholder="Subject..."
             search
@@ -101,7 +118,7 @@ class CreateHomeworkForm extends Component {
             }
             style={{ marginTop: "5px", marginBottom: "5px" }}
           >
-            <div className="ui label">Due to: </div>
+            <div className="ui label">Datum: </div>
             <input
               type="date"
               placeholder="Due to"
@@ -117,7 +134,7 @@ class CreateHomeworkForm extends Component {
             }
             style={{ marginBottom: "5px" }}
           >
-            <div className="ui label">Task: </div>
+            <div className="ui label">Titel: </div>
             <input
               type="text"
               placeholder="Task"
@@ -133,7 +150,7 @@ class CreateHomeworkForm extends Component {
           ></textarea>
           <br />
           <div className="ui button" onClick={this.onHomeworkSubmit}>
-            Create Homework
+            Hausaufgabe erstellen
           </div>
         </div>
       );

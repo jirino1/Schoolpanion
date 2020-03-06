@@ -13,7 +13,7 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      days: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"],
       isDoubleClickedArray: generateFalseArray(11, 5),
       timeDoubleClicks: generateFalseArray(11, 1)
     };
@@ -44,14 +44,12 @@ class Table extends Component {
     return { time1, time2 };
   }
   render() {
-    console.log(this.props);
-    console.log(this.state.timeDoubleClicks);
     if (
       !this.props.table.tableData ||
       !this.props.tasks.list ||
       !this.props.table.times
     ) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     }
     const startWeek = addDays(startOfWeek(startOfToday()), 1);
     return (
@@ -61,7 +59,7 @@ class Table extends Component {
         ) : (
           <header className="ui header">
             <h1 style={{ textAlign: "center" }}>
-              {this.props.disabled ? "" : "My Timetable"}
+              {this.props.disabled ? "" : "Mein Stundenplan"}
             </h1>
           </header>
         )}
@@ -168,7 +166,11 @@ class Table extends Component {
                             <div>
                               <div className="content">
                                 <div className="header">
-                                  <h3>{task.origin}</h3>
+                                  <h3>
+                                    {task.origin === "homework"
+                                      ? "Hausaufgabe"
+                                      : `${task.subject}-Klausuraufgabe`}
+                                  </h3>
                                 </div>
                                 <span
                                   style={{

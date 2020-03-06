@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getTasks, getTask, markDone, deleteTask } from "../../actions";
 import { getRemainingDays, HoverSegment } from "../../helpers";
 import history from "../../history";
+import Modal from "../Modal";
 
 class Homework extends Component {
   // constructor(props){
@@ -24,18 +25,25 @@ class Homework extends Component {
     const { task } = this.props.tasks;
 
     if (task === null) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     }
     if (task === undefined) {
-      return <div>The Homework you're searching for doesn't exist</div>;
+      return (
+        <Modal
+          title="Fehler"
+          content="Die Aufgabe, die sie suchen, existiert nicht"
+          onDismiss={() => {
+            history.goBack();
+          }}
+        ></Modal>
+      );
     }
     const remainingDays = getRemainingDays(task.date);
     return (
       <div className="ui container">
-        {/* <HomeworkCard task={task} owner={this} /> */}
         <div className="ui centered header">
           <h3>
-            {task.subject + "-Homework"}
+            {task.subject + "-Aufgabe"}
             <div className="ui icon buttons">
               <button
                 className="ui icon button"
@@ -46,7 +54,6 @@ class Homework extends Component {
               >
                 <i className="small trash alternate outline icon"></i>
               </button>
-              {/* MUSS NOCH IN ICON BUTTONS GEMACHT WERDEN */}
               <button
                 className="ui small icon button"
                 id={task.id}

@@ -10,9 +10,13 @@ import {
   createTask,
   getNextId,
   deleteTask,
-  deleteTaskOfExam
+  deleteTaskOfExam,
+  getTableData
 } from "../../actions";
 import history from "../../history";
+import Modal from "../Modal";
+import { noSubjects } from "../../helpers";
+import HelpButton from "../HelpButton";
 
 class EditExamForm extends Component {
   constructor(props) {
@@ -30,6 +34,9 @@ class EditExamForm extends Component {
       await this.props.getTasks();
     }
     await this.props.getNextId();
+    if (this.props.table.subjects === null) {
+      await this.props.getTableData();
+    }
   }
   optionmapper() {
     // console.log(this.props.table.subjects);
@@ -125,7 +132,7 @@ class EditExamForm extends Component {
           render={({ values, errors, touched, handleChange, handleBlur }) => (
             <Form>
               <div className="ui labeled input">
-                <label className="ui label">Subject: </label>
+                <label className="ui label">Fach: </label>
                 <input
                   type="text"
                   name="subject"
@@ -137,7 +144,7 @@ class EditExamForm extends Component {
               </div>
               <p />
               <div className="ui labeled input">
-                <label className="ui label">Date: </label>
+                <label className="ui label">Datum: </label>
                 <input
                   type="date"
                   name="date"
@@ -148,7 +155,7 @@ class EditExamForm extends Component {
                 {errors.date && touched.date && errors.date}
               </div>
               <p />
-              <h3 className="ui header">Add Tasks</h3>
+              <h3 className="ui header">Aufgaben hinzufügen</h3>
               <FieldArray name="tasks">
                 {arrayHelpers => (
                   <div>
@@ -188,7 +195,7 @@ class EditExamForm extends Component {
                                   }}
                                   className="ui labeled input"
                                 >
-                                  <label className="ui label">Title: </label>
+                                  <label className="ui label">Titel: </label>
                                   <Field
                                     name={`tasks[${index}].title]`}
                                     value={task.title || ""}
@@ -214,7 +221,7 @@ class EditExamForm extends Component {
                                   }}
                                   className="ui labeled input"
                                 >
-                                  <label className="ui label">Date: </label>
+                                  <label className="ui label">Datum: </label>
                                   <Field
                                     name={`tasks[${index}].date`}
                                     type="date"
@@ -256,7 +263,7 @@ class EditExamForm extends Component {
                             }
                           >
                             {/* show this when user has removed all friends from the list */}
-                            Add Tasks
+                            Aufgaben hinzufügen
                           </button>
                         </div>
                       </div>
@@ -269,13 +276,13 @@ class EditExamForm extends Component {
                         }
                       >
                         {/* show this when user has removed all friends from the list */}
-                        Add Tasks
+                        Aufgaben hinzufügen
                       </button>
                     )}
                     <div>
                       <p />
                       <button className="ui button" type="submit">
-                        Submit
+                        Bestätigen
                       </button>
                     </div>
                   </div>
@@ -292,14 +299,29 @@ class EditExamForm extends Component {
     if (
       !this.props.tasks.list ||
       !this.props.exams.exam ||
-      this.props.tasks.nextID === null
+      this.props.tasks.nextID === null ||
+      !this.props.table.subjects
     ) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
+    } else if (
+      !this.props.table.subjects ||
+      this.props.table.subjects.length === 0
+    ) {
+      return (
+        <Modal
+          title="Ups!"
+          content={noSubjects()}
+          onDismiss={() => {
+            history.push("/timetable");
+          }}
+          actions={HelpButton({ icon: false })}
+        ></Modal>
+      );
     }
     return (
       <div className="ui container">
         <h1 className="ui header">
-          Edit the {" " + this.props.exams.exam.subject}-Exam
+          {" " + this.props.exams.exam.subject}-Klausur bearbeiten
         </h1>
         {this.myForm()}
       </div>
@@ -310,7 +332,8 @@ class EditExamForm extends Component {
 const mapStateToProps = state => {
   return {
     exams: state.exams,
-    tasks: state.tasks
+    tasks: state.tasks,
+    table: state.table
   };
 };
 
@@ -322,7 +345,8 @@ const mapDispatchToProps = {
   createTask,
   getNextId,
   deleteTask,
-  deleteTaskOfExam
+  deleteTaskOfExam,
+  getTableData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditExamForm);

@@ -108,14 +108,14 @@ class ExamList extends Component {
   render() {
     // console.log(this.props);
     if (this.props.exams.list === null) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     } else {
       return (
         <div className="ui container">
           <div>
             <header className="ui header">
               <h1 style={{ paddingLeft: "10px" }}>
-                Exams
+                Ihre Klausuren
                 <div
                   className="ui button"
                   style={{ marginLeft: "10px" }}
@@ -123,7 +123,7 @@ class ExamList extends Component {
                     history.push("/exams/newExam");
                   }}
                 >
-                  New Exam
+                  Neue Klausuren
                 </div>
               </h1>
             </header>

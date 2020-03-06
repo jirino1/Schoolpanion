@@ -30,10 +30,10 @@ class DeleteExam extends React.Component {
           }}
           className="ui button negative"
         >
-          Delete
+          Löschen
         </button>
         <button onClick={() => history.goBack()} className="ui button">
-          Cancel
+          Abbruch
         </button>
       </React.Fragment>
     );
@@ -41,10 +41,10 @@ class DeleteExam extends React.Component {
 
   renderContent() {
     if (!this.props.exams.exam) {
-      return "Are you sure you want to delete this exam?";
+      return "Sind sie sich sicher, dass sie diese Klausur löschen wollen?";
     }
 
-    return `Are you sure you want to delete the ${this.props.exams.exam.subject}-Exam? `;
+    return `Sind sie sich sicher, dass sie die ${this.props.exams.exam.subject}-Klausur löschen wollen? `;
   }
 
   render() {

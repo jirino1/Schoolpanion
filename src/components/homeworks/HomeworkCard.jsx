@@ -17,7 +17,7 @@ export default function HomeworkCard(props) {
         }
       >
         <div className="header">{props.task.subject}</div>
-        <div className="meta">{"Till " + formatDate(props.task.date)}</div>
+        <div className="meta">{"Bis zum " + formatDate(props.task.date)}</div>
         <div className="description">{props.task.title}</div>
       </div>
       <div className="ui bottom attached collapsing small icon buttons">

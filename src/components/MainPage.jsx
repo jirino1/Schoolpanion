@@ -12,6 +12,7 @@ import { sortByDates, getRemainingDays } from "../helpers";
 import MyAccordion from "./MyAccordion";
 import Table from "./timetable/Table";
 import history from "../history";
+import HelpButton from "./HelpButton";
 
 class MainPage extends Component {
   constructor(props) {
@@ -49,12 +50,13 @@ class MainPage extends Component {
 
   render() {
     if (!this.state.upcomingTasks || !this.state.doneTasks) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     }
     return (
       <div className="ui container">
         <header style={{ textAlign: "center" }} className="ui header">
           <h1>Willkommen zurück!</h1>
+          <HelpButton icon />
         </header>
         <MyAccordion
           content={[
@@ -79,10 +81,10 @@ class MainPage extends Component {
       >
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Subject</th>
-            <th>Remaining time</th>
-            <th>Origin</th>
+            <th>Titel</th>
+            <th>Fach</th>
+            <th>Verbleibende Zeit</th>
+            <th>Aufgabentyp</th>
             <th></th>
           </tr>
         </thead>

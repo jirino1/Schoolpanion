@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 export function formatDate(date) {
   const splittedDate = date.split("-");
@@ -82,4 +83,14 @@ export function generateFalseArray(length, width) {
     }
   }
   return a;
+}
+export function noSubjects() {
+  return (
+    <>
+      (⊙＿⊙')
+      <br />
+      Scheint so, als hätten sie in ihrem Stundenplan noch keine Fächer... Fügen
+      sie diese hinzu!
+    </>
+  );
 }

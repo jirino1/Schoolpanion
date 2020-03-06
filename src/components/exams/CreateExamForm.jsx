@@ -11,6 +11,9 @@ import {
   getTableData
 } from "../../actions";
 import history from "../../history";
+import Modal from "../Modal";
+import { noSubjects } from "../../helpers";
+import HelpButton from "../HelpButton";
 
 class CreateExamForm extends Component {
   async componentDidMount() {
@@ -112,7 +115,7 @@ class CreateExamForm extends Component {
                 }}
                 className="ui labeled input"
               >
-                <label className="ui label">Subject: </label>
+                <label className="ui label">Fach: </label>
                 <select
                   className="ui search dropdown"
                   name="subject"
@@ -126,7 +129,7 @@ class CreateExamForm extends Component {
                     hidden
                     key={""}
                   >
-                    Subject...
+                    Fach...
                   </option>
                   ;
                   {this.props.table.subjects.map(subject => {
@@ -143,7 +146,7 @@ class CreateExamForm extends Component {
                 }}
                 className="ui labeled input"
               >
-                <label className="ui label">Date: </label>
+                <label className="ui label">Datum: </label>
                 <input
                   type="date"
                   name="date"
@@ -154,7 +157,7 @@ class CreateExamForm extends Component {
                 {errors.date && touched.date && errors.date}
               </div>
               <p />
-              <h3 className="ui header">Add Tasks</h3>
+              <h3 className="ui header">Aufgaben hinzufügen</h3>
               <FieldArray name="tasks">
                 {arrayHelpers => (
                   <div>
@@ -262,7 +265,7 @@ class CreateExamForm extends Component {
                             }
                           >
                             {/* show this when user has removed all friends from the list */}
-                            Add Tasks
+                            Aufgaben hinzufügen
                           </button>
                         </div>
                       </div>
@@ -275,13 +278,13 @@ class CreateExamForm extends Component {
                         }
                       >
                         {/* show this when user has removed all friends from the list */}
-                        Add Tasks
+                        Aufgaben hinzufügen
                       </button>
                     )}
                     <div>
                       <p />
                       <button className="ui button" type="submit">
-                        Submit
+                        Bestätigen
                       </button>
                     </div>
                   </div>
@@ -293,24 +296,35 @@ class CreateExamForm extends Component {
       </div>
     );
   }
-
+  // renderHelp() {
+  //   return <HelpButton />;
+  // }
   render() {
     if (!this.props.exams.nextID && !this.props.table.subjects) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     } else if (!this.props.exams.nextID) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     } else if (
       !this.props.table.subjects ||
       this.props.table.subjects.length === 0
     ) {
-      return <div>Add some Subjects in your Timetable!</div>;
+      return (
+        <Modal
+          title="HMMM"
+          content={noSubjects()}
+          onDismiss={() => {
+            history.push("/timetable");
+          }}
+          actions={HelpButton({ icon: false })}
+        ></Modal>
+      );
     }
     // console.log(this.state);
     // console.log(this.props);
     else {
       return (
         <div className="ui container">
-          <h1 className="ui header">Create an Exam</h1>
+          <h1 className="ui header">Klausur erstellen</h1>
           {this.myForm()}
         </div>
       );

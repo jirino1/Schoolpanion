@@ -9,7 +9,7 @@ const DoubleClickInput = React.forwardRef((props, ref) => {
       autoFocus={props.autoFocus}
       type={props.type}
       name={props.name}
-      placeholder={props.type === "time" ? "HH:MM" : "Subject"}
+      placeholder={props.type === "time" ? "HH:MM" : "Fach"}
       defaultValue={props.defaultValue}
       onBlur={async e => {
         if (props.type === "text") {

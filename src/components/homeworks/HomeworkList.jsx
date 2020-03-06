@@ -46,14 +46,14 @@ class HomeworkList extends Component {
     const homeworks = this.props.tasks.list;
     console.log(homeworks);
     if (homeworks === null) {
-      return <div>Loading...</div>;
+      return <div>Lädt...</div>;
     }
 
     return (
       <div className="ui container">
         <div>
           <h1 style={{ paddingLeft: "10px" }}>
-            Homework
+            Hausaufgaben
             <div
               className="ui button"
               style={{ marginLeft: "10px" }}
@@ -61,7 +61,7 @@ class HomeworkList extends Component {
                 history.push("/homework/newHomework");
               }}
             >
-              New Task
+              Neue Aufgabe
             </div>
           </h1>
         </div>

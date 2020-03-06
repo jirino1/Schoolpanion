@@ -28,7 +28,7 @@ export default function MyMenuBar() {
           history.push("/exams");
         }}
       >
-        Exams
+        Klausuren
         <i className="dropdown icon"></i>
         <div className="inverted menu">
           <div
@@ -39,7 +39,7 @@ export default function MyMenuBar() {
             }}
           >
             <i className="plus icon"></i>
-            Add Exam
+            hinzufügen...
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function MyMenuBar() {
           history.push("/homework");
         }}
       >
-        Homework
+        Hausaufgaben
         <i className="dropdown icon"></i>
         <div className="inverted menu">
           <div
@@ -60,7 +60,7 @@ export default function MyMenuBar() {
             }}
           >
             <i className="plus icon"></i>
-            Add Homework
+            Hausaufgaben hinzufügen
           </div>
         </div>
       </div>
@@ -70,7 +70,25 @@ export default function MyMenuBar() {
         }}
         className="link item"
       >
-        Timetable
+        Stundenplan
+      </div>
+      <div className="ui right inverted menu">
+        <div
+          className="ui simple right floating link icon item"
+          onClick={() => {
+            history.push("/help");
+          }}
+        >
+          <i className="large question icon" />
+        </div>
+        <div
+          className="ui simple right floating link icon item"
+          onClick={() => {
+            history.push("/reset");
+          }}
+        >
+          <i className="large red bug icon" />
+        </div>
       </div>
     </div>
   );

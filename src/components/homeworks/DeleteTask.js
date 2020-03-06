@@ -26,10 +26,10 @@ class DeleteTask extends React.Component {
           }}
           className="ui button negative"
         >
-          Delete
+          Löschen
         </button>
         <button onClick={() => history.goBack()} className="ui button">
-          Cancel
+          Abbruch
         </button>
       </React.Fragment>
     );
@@ -37,16 +37,16 @@ class DeleteTask extends React.Component {
 
   renderContent() {
     if (!this.props.tasks.task) {
-      return "Are you sure you want to delete this task?";
+      return "Sicher, dass du die Aufgabe löschen willst?";
     }
 
-    return `Are you sure you want to delete this ${this.props.tasks.task.subject}-task? `;
+    return `Sicher, dass du die ${this.props.tasks.task.subject}-Aufgabe löschen willst? `;
   }
 
   render() {
     return (
       <Modal
-        title="Delete Task"
+        title="Aufgabe löschen"
         content={this.renderContent()}
         actions={this.renderActions()}
         onDismiss={() => history.goBack()}
