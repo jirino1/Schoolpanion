@@ -61,15 +61,6 @@ class EditExamForm extends Component {
     }
     return taskArray;
   }
-  // theBoolean(values) {
-  //   let b = true;
-  //   for (let i = 0; i < values.length; i++) {
-  //     if (!values[i]) {
-  //       b = false;
-  //     }
-  //   }
-  //   return b;
-  // }
   myForm() {
     return (
       <div>
@@ -133,13 +124,31 @@ class EditExamForm extends Component {
             <Form>
               <div className="ui labeled input">
                 <label className="ui label">Fach: </label>
-                <input
-                  type="text"
+                <select
+                  className="ui search dropdown"
+                  style={{
+                    borderTopRightRadius: "5px",
+                    borderBottomRightRadius: "5px",
+                    border: "none"
+                  }}
                   name="subject"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.subject || ""}
-                />
+                >
+                  <option
+                    style={{ color: "light grey" }}
+                    defaultValue
+                    hidden
+                    key={""}
+                  >
+                    Fach...
+                  </option>
+                  ;
+                  {this.props.table.subjects.map(subject => {
+                    return <option key={subject}>{subject}</option>;
+                  })}
+                </select>
                 {errors.subject && touched.subject && errors.subject}
               </div>
               <p />
@@ -164,27 +173,34 @@ class EditExamForm extends Component {
                         {values.tasks.map((task, index) => {
                           return (
                             <div key={index}>
-                              <h4
-                                style={{ textAlign: "left" }}
-                                className="ui horizontal divider header"
-                              >
-                                {"Task " + index}{" "}
-                                <span
+                              <div className="ui horizontal divider header">
+                                <h4
                                   style={{
-                                    paddingLeft: "10px",
-                                    alignContent: "bottom"
+                                    display: "flex"
                                   }}
                                 >
-                                  <button
-                                    style={{ height: "100%" }}
-                                    className="ui icon button"
+                                  <div
+                                    style={{
+                                      alignSelf: "center",
+                                      paddingRight: "5px"
+                                    }}
+                                    className="left floated content"
+                                  >
+                                    {"Aufgabe " + (index + 1)}
+                                  </div>
+                                  <span
+                                    className="ui right floated small icon button"
                                     type="button"
+                                    style={{
+                                      float: "right",
+                                      padding: "0.5em"
+                                    }}
                                     onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                                   >
-                                    <i className=" trash icon"></i>
-                                  </button>
-                                </span>
-                              </h4>
+                                    <i className="trash icon"></i>
+                                  </span>
+                                </h4>
+                              </div>
                               <div
                                 style={{ display: "flex", marginBottom: "5px" }}
                                 key={index}
@@ -244,6 +260,7 @@ class EditExamForm extends Component {
                               </div>
                               <textarea
                                 name={`tasks[${index}].description]`}
+                                placeholder="Beschreibung (optional)"
                                 value={task.description || ""}
                                 onBlur={handleBlur}
                                 onChange={handleChange}

@@ -15,12 +15,12 @@ class DeleteTask extends React.Component {
     return (
       <React.Fragment>
         <button
-          onClick={() => {
+          onClick={async () => {
             if (task) {
               if (task.origin === "exams") {
-                this.props.deleteTaskOfExam(task.examID, task.id);
+                await this.props.deleteTaskOfExam(task.examID, task.id);
               }
-              this.props.deleteTask(id);
+              await this.props.deleteTask(id);
               history.goBack();
             }
           }}

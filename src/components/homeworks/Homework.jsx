@@ -41,50 +41,87 @@ class Homework extends Component {
     const remainingDays = getRemainingDays(task.date);
     return (
       <div className="ui container">
-        <div className="ui centered header">
-          <h3>
-            {task.subject + "-Aufgabe"}
-            <div className="ui icon buttons">
+        <header className="ui center aligned header">
+          <h1
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <div
+              style={{
+                paddingRight: "10px"
+              }}
+              className="content"
+            >
+              {task.subject + "-Aufgabe"}
+            </div>
+            <span className="ui icon buttons">
               <button
+                style={{ padding: "0.6em" }}
                 className="ui icon button"
                 id={task.id}
                 onClick={() => {
-                  history.push(`/homework/homework/${task.id}/delete`);
-                }}
-              >
-                <i className="small trash alternate outline icon"></i>
-              </button>
-              <button
-                className="ui small icon button"
-                id={task.id}
-                onClick={() => {
-                  history.push(`/homework/homework/${task.id}/edit`);
+                  history.push(`/tasks/task/${task.id}/edit`);
                 }}
               >
                 <i className="edit icon"></i>
               </button>
-            </div>
-          </h3>
-        </div>
+              <button
+                style={{ padding: "0.6em" }}
+                className="ui icon button"
+                id={task.id}
+                onClick={() => {
+                  history.push(`/tasks/task/${task.id}/delete`);
+                }}
+              >
+                <i className="trash alternate outline icon"></i>
+              </button>
+            </span>
+          </h1>
+        </header>
         <HoverSegment
-          className="ui segment"
           onClick={() => {
             this.props.markDone(task.id);
           }}
           style={{
             backgroundColor: task.completed ? "grey" : "white"
           }}
+          className="ui segment"
         >
           <div>
-            <span
-              style={{ textAlign: "center", float: "left" }}
-              className="meta"
-            >
-              {remainingDays.time + remainingDays.unit}
-            </span>
-            <div className="ui header">
-              <h3 style={{ textAlign: "center" }}>{task.title}</h3>
-            </div>
+            <header className="ui center aligned header">
+              <h3
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <div
+                  style={{
+                    paddingRight: "10px",
+                    color: !task.completed ? "black" : "white",
+                    textShadow: task.completed
+                      ? "-0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black"
+                      : "none"
+                  }}
+                  className="content"
+                >
+                  {task.title}
+                </div>
+                <label
+                  className={
+                    remainingDays.unit === "h" || remainingDays.time < 2
+                      ? " ui red right floated label "
+                      : "ui right floated label"
+                  }
+                >
+                  {remainingDays.time + remainingDays.unit}
+                </label>
+              </h3>
+            </header>
           </div>
 
           <div className="content">{task.description}</div>

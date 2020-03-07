@@ -15,12 +15,12 @@ const Help = () => {
       </h1>
       <h3>Was ist Schoolpanion?</h3>
       <p>
-        Die App die jeder braucht! Ne Quatsch, aber was dir diese App bietet
-        ist, dass sie dir die Organisation von deinem Schulleben zu erleichtern
-        kann. Du kannst Lernpläne für die Klausuren verwalten sowie Hausaufgaben
-        und deinen Stundenplan eintragen. Auf der Hauptseite werden dir bei
-        allem Chaos kurz und kompakt die anstehenden Aufgaben von den Lernplänen
-        und den Hausaufgaben angezeigt.
+        Die App die jeder braucht! Ne Quatsch, aber sie bietet jede Menge an
+        tollen Features um dir die Organisation von deinem Schulleben zu
+        erleichtern. Du kannst Lernpläne für die Klausuren verwalten sowie
+        Hausaufgaben und deinen Stundenplan eintragen. Auf der Hauptseite werden
+        dir bei allem Chaos kurz und kompakt die anstehenden Aufgaben von den
+        Lernplänen und den Hausaufgaben angezeigt.
         <br />
         Anmerkung vom Entwickler: So stolz ich auch auf meine App bin: Ich bin
         weiterhin offen für Verbesserungsvorschäge. Kontaktier mich per E-Mail
@@ -30,14 +30,14 @@ const Help = () => {
       <p>
         Die nächsten Klausuren bahnen sich an und du willst organisieren, wann
         du was lernen musst? Dann erstelle eine Klausur, indem du auf
-        <a disabled>Klausuren</a> und dann auf Neue Klausur gehst. Pflichtfelder
-        sind das Fach, und der Klausurtermin. Über den "Aufgaben
-        hinzufügen"-Knopf kannst du Aufgaben hinzufügen, welchen du einen Titel,
-        einen Tag, bis wann sie erledigt sein soll, sowie optional eine
-        Beschreibung. Beachte dabei, dass du nur die Fächer auswählen kannst,
-        die auch in deinem Stundenplan stehen. Stelle also sicher, dass du
-        deinen Stundenplan immer eingetragen hast oder zumindest deine
-        Klausurfächer :)
+        <label style={{ color: "blue" }}>{" Klausuren"}</label> und dann auf
+        Neue Klausur gehst. Pflichtfelder sind das Fach, und der Klausurtermin.
+        Über den "Aufgaben hinzufügen"-Knopf kannst du Aufgaben hinzufügen,
+        welchen du einen Titel, einen Tag, bis wann sie erledigt sein soll,
+        sowie optional eine Beschreibung. Beachte dabei, dass du nur die Fächer
+        auswählen kannst, die auch in deinem Stundenplan stehen. Stelle also
+        sicher, dass du deinen Stundenplan immer eingetragen hast oder zumindest
+        deine Klausurfächer :)
         <br />
         Wenn du einen Fehler baust, kein Problem! Du kannst sie jederzeit
         bearbeiten, indem du {" den "} <i className="edit icon" />
@@ -53,10 +53,10 @@ const Help = () => {
       <h3>Hausaufgaben</h3>
       <p>
         Zum idealen Schulbegleiter gehört natürlich auch ein Hausaufgabenheft.
-        Unter <a disabled>Hausaufgaben</a> kannst du Hausaufgaben erstellen,
-        bearbeiten und löschen nach Herzenslust! Es funktioniert genauso wie bei
-        den Klausuren - schnell und einfach (wenn nicht: schoolpanion@gmail.com
-        ;) )!
+        Unter <label style={{ color: "blue" }}>Hausaufgaben</label> kannst du
+        Hausaufgaben erstellen, bearbeiten und löschen nach Herzenslust! Es
+        funktioniert genauso wie bei den Klausuren - schnell und einfach (wenn
+        nicht: schoolpanion@gmail.com ;) )!
         <br />
         <b>
           Auch die Hausaufgaben werden 14 Tage nach Ablauf ihrer Frist
@@ -65,10 +65,11 @@ const Help = () => {
       </p>
       <h3>Stundenplan</h3>
       <p>
-        Den Stundenplan kannst du unter <a disabled>Stundenplan</a> verwalten.
-        Durch einen Doppelklick auf das gewünschte Feld kannst du es bearbeiten.
-        Die Zeiten, in denen die einzelnen Stunden stattfinden, kannst du
-        ebenfalls durch einen Doppelklick auf die Stunden hinzufügen.
+        Den Stundenplan kannst du unter{" "}
+        <label style={{ color: "blue" }}>Stundenplan</label> verwalten. Durch
+        einen Doppelklick auf das gewünschte Feld kannst du es bearbeiten. Die
+        Zeiten, in denen die einzelnen Stunden stattfinden, kannst du ebenfalls
+        durch einen Doppelklick auf die Stunden hinzufügen.
         <br />
         <b>Auf der Hauptseite kannst du den Stundenplan NICHT BEARBEITEN!</b>
         (Passierte mir beim entwickeln oft)
@@ -82,30 +83,31 @@ const Help = () => {
       <p>
         Das kann natürlich vorkommen - Bin ja auch nur ein Mensch. Wenn das
         passiert, gibt es drei Lösungen:
-        <ol>
-          <li>Lad die Seite noch einmal neu.</li>
-          <li>
-            Versuche, die Hausaufgabe oder die Klausur, die den Fehler
-            verursacht, zu löschen und nochmal neu zu erstellen.
-          </li>
-          <li>
-            LETZTE OPTION: App zurücksetzen, indem du
-            https://schoolpanion.herokuapp.com/reset aufrufst...
-          </li>
-        </ol>
-        Sollte das alles nicht helfen bin ich wohl der schlechteste Entwickler
-        aller Zeiten.
-        <br />
-        ¯\(°_o)/¯
-        <br />
-        <b>
-          Falls der erste Schritt nicht geklappt hat, würde es mir wirklich
-          helfen, wenn du mir einen Screenshot (Windows-Taste+druck) von der
-          Fehlermeldung machst (falls vorhanden) und mir per Mail zusammen mit
-          einer kurzen Beschreibung von dem Fehler schicken würdest. Ich werde
-          versuchen, den Fehler zu beheben.
-        </b>
       </p>
+      <ol>
+        <li>Lad die Seite noch einmal neu.</li>
+        <li>
+          Versuche, die Hausaufgabe oder die Klausur, die den Fehler verursacht,
+          zu löschen und nochmal neu zu erstellen.
+        </li>
+        <li>
+          LETZTE OPTION: App zurücksetzen, indem du
+          https://schoolpanion.herokuapp.com/reset aufrufst, betätigst und
+          danach die Seite neu lädst.
+        </li>
+      </ol>
+      Sollte das alles nicht helfen, bin ich wohl der schlechteste Entwickler
+      aller Zeiten.
+      <br />
+      ¯\(°_o)/¯
+      <br />
+      <b>
+        Falls der erste Schritt nicht geklappt hat, würde es mir wirklich
+        helfen, wenn du mir einen Screenshot (Windows-Taste+druck) von der
+        Fehlermeldung machst (falls vorhanden) und mir per Mail zusammen mit
+        einer kurzen Beschreibung von dem Fehler schicken würdest. Ich werde
+        versuchen, den Fehler zu beheben.
+      </b>
     </div>
   );
 };

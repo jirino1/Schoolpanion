@@ -109,15 +109,19 @@ class CreateExamForm extends Component {
             <Form>
               <div
                 style={{
-                  paddingLeft: "0.6px",
-                  paddingBottom: "0.6px",
-                  paddingRight: "0.6px"
+                  padding: "0.6px",
+                  backgroundColor: "white"
                 }}
                 className="ui labeled input"
               >
                 <label className="ui label">Fach: </label>
                 <select
                   className="ui search dropdown"
+                  style={{
+                    borderTopRightRadius: "5px",
+                    borderBottomRightRadius: "5px",
+                    border: "none"
+                  }}
                   name="subject"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -166,27 +170,35 @@ class CreateExamForm extends Component {
                         {values.tasks.map((task, index) => {
                           return (
                             <div key={index}>
-                              <h4
-                                style={{ textAlign: "left" }}
-                                className="ui horizontal divider header"
-                              >
-                                {"Task " + (index + 1)}{" "}
-                                <span
+                              <div className="ui horizontal divider header">
+                                <h4
                                   style={{
-                                    paddingLeft: "10px",
-                                    alignContent: "bottom"
+                                    display: "flex"
                                   }}
                                 >
-                                  <button
-                                    style={{ height: "100%" }}
-                                    className="ui icon button"
+                                  <div
+                                    style={{
+                                      alignSelf: "center",
+                                      paddingRight: "5px"
+                                    }}
+                                    className="left floated content"
+                                  >
+                                    {"Aufgabe " + (index + 1)}
+                                  </div>
+                                  <span
+                                    className="ui right floated small icon button"
                                     type="button"
+                                    style={{
+                                      float: "right",
+                                      padding: "0.5em"
+                                    }}
                                     onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                                   >
-                                    <i className=" trash icon"></i>
-                                  </button>
-                                </span>
-                              </h4>
+                                    <i className="trash icon"></i>
+                                  </span>
+                                </h4>
+                              </div>
+
                               <div
                                 style={{ display: "flex", marginBottom: "5px" }}
                                 key={index}
@@ -197,7 +209,7 @@ class CreateExamForm extends Component {
                                   }}
                                   className="ui labeled input"
                                 >
-                                  <label className="ui label">Title: </label>
+                                  <label className="ui label">Titel: </label>
                                   <Field
                                     name={`tasks[${index}].title]`}
                                     value={task.title || ""}
@@ -223,34 +235,37 @@ class CreateExamForm extends Component {
                                   }}
                                   className="ui labeled input"
                                 >
-                                  <label className="ui label">Date: </label>
+                                  <label className="ui label">Datum: </label>
                                   <Field
                                     name={`tasks[${index}].date`}
                                     type="date"
                                     value={task.date || ""}
                                   />
+                                  {errors &&
+                                  errors.tasks !== null &&
+                                  errors.tasks !== undefined &&
+                                  errors.tasks[index] !== null &&
+                                  errors.tasks[index] !== undefined &&
+                                  typeof errors.tasks[index].date ===
+                                    "string" &&
+                                  touched.tasks &&
+                                  touched.tasks[index] !== null &&
+                                  touched.tasks[index] !== undefined &&
+                                  typeof touched.tasks[index].date ===
+                                    "boolean" ? (
+                                    <span>{errors.tasks[index].date}</span>
+                                  ) : null}
                                 </div>
-                                {errors &&
-                                errors.tasks !== null &&
-                                errors.tasks !== undefined &&
-                                errors.tasks[index] !== null &&
-                                errors.tasks[index] !== undefined &&
-                                typeof errors.tasks[index].date === "string" &&
-                                touched.tasks &&
-                                touched.tasks[index] !== null &&
-                                touched.tasks[index] !== undefined &&
-                                typeof touched.tasks[index].date ===
-                                  "boolean" ? (
-                                  <span>{errors.tasks[index].date}</span>
-                                ) : null}
                               </div>
                               <textarea
                                 name={`tasks[${index}].description]`}
+                                placeholder="Beschreibung (optional)"
                                 value={task.description || ""}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                className="field"
+                                className="ui textarea"
                               ></textarea>
+
                               <br />
                             </div>
                           );

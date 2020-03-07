@@ -13,7 +13,6 @@ import { formatDate } from "../../helpers";
 
 class ExamList extends Component {
   async componentDidMount() {
-    // Task: Nur Laden wenn noch nicht vorhanden
     if (this.props.exams.list === null) {
       await this.props.getExams();
     }
@@ -80,6 +79,7 @@ class ExamList extends Component {
               </div>
               <div className="ui bottom attached collapsing small icon buttons">
                 <button
+                  style={{ border: "none" }}
                   className="ui small icon button"
                   id={exam.id}
                   onClick={() => {
@@ -89,7 +89,8 @@ class ExamList extends Component {
                   <i className="edit icon"></i>
                 </button>
                 <button
-                  className="ui small icon button"
+                  style={{ border: "none" }}
+                  className="ui small negative icon button"
                   id={exam.id}
                   onClick={() => {
                     history.push(`/exams/exam/${exam.id}/delete`);
@@ -106,7 +107,6 @@ class ExamList extends Component {
   }
 
   render() {
-    // console.log(this.props);
     if (this.props.exams.list === null) {
       return <div>Lädt...</div>;
     } else {
@@ -132,28 +132,10 @@ class ExamList extends Component {
         </div>
       );
     }
-
-    // if (list === null) {
-    //   return <div>Loading...</div>;
-    // }
-
-    // return (
-    //   <div>
-    //   <div>
-    //     <h1 style={{paddingLeft:'10px'}}>Liste der Klausuren
-    //       <div className="ui button" style={{margin:'10px'}} onClick={()=>{this.setState({redirect:true})}}>Neues Task</div>
-    //     </h1>
-    //     {this.renderTasks()}
-    //   </div>
-    //   <div className="ui button" onClick={() => {history.push("/")}}>Zurück zur Homepage</div>
-    //   </div>
-    // );
   }
 }
 
 const mapStateToProps = state => {
-  //console.log(state);
-
   return { exams: state.exams, tasks: state.tasks };
 };
 

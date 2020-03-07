@@ -12,7 +12,6 @@ import { sortByDates, getRemainingDays } from "../helpers";
 import MyAccordion from "./MyAccordion";
 import Table from "./timetable/Table";
 import history from "../history";
-import HelpButton from "./HelpButton";
 
 class MainPage extends Component {
   constructor(props) {
@@ -56,7 +55,6 @@ class MainPage extends Component {
       <div className="ui container">
         <header style={{ textAlign: "center" }} className="ui header">
           <h1>Willkommen zurück!</h1>
-          <HelpButton icon />
         </header>
         <MyAccordion
           content={[

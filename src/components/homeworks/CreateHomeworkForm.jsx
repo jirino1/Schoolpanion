@@ -137,7 +137,7 @@ class CreateHomeworkForm extends Component {
             <div className="ui label">Titel: </div>
             <input
               type="text"
-              placeholder="Task"
+              placeholder="Aufgabe"
               onChange={this.onTaskChange}
             />
           </div>
@@ -146,7 +146,7 @@ class CreateHomeworkForm extends Component {
             onChange={e => {
               this.setState({ description: e.target.value });
             }}
-            className="field"
+            className="ui textarea"
           ></textarea>
           <br />
           <div className="ui button" onClick={this.onHomeworkSubmit}>

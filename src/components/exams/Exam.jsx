@@ -49,12 +49,26 @@ class Exam extends Component {
     } else {
       return (
         <div className="ui container">
-          <div className="ui centered header">
-            <h3>
-              {exam.subject + "-Exam"}
-              <div className="ui icon buttons">
+          <header className="ui center aligned header">
+            <h1
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <div
+                style={{
+                  paddingRight: "10px"
+                }}
+                className="content"
+              >
+                {exam.subject + "-Klausur"}
+              </div>
+              <span className="ui icon buttons">
                 <button
-                  className="ui small icon button"
+                  style={{ padding: "0.6em" }}
+                  className="ui icon button"
                   id={exam.id}
                   onClick={() => {
                     history.push(`/exams/exam/${exam.id}/edit`);
@@ -63,25 +77,48 @@ class Exam extends Component {
                   <i className="edit icon"></i>
                 </button>
                 <button
+                  style={{ padding: "0.6em" }}
                   className="ui icon button"
                   id={exam.id}
                   onClick={() => {
                     history.push(`/exams/exam/${exam.id}/delete`);
                   }}
                 >
-                  <i className="small trash alternate outline icon"></i>
+                  <i className="trash alternate outline icon"></i>
                 </button>
-                {/* MUSS NOCH IN ICON BUTTONS GEMACHT WERDEN */}
-              </div>
-            </h3>
-          </div>
+              </span>
+            </h1>
+          </header>
 
           {sortByCompleted(sortById(tasks)).map((task, index) => {
             const remainingDays = getRemainingDays(task.date);
             return (
               <div key={index}>
                 <div className="ui horizontal divider header">
-                  <h4>{"Task " + (index + 1)}</h4>
+                  <h4
+                    style={{
+                      display: "flex"
+                    }}
+                  >
+                    <div
+                      style={{
+                        alignSelf: "center",
+                        paddingRight: "5px"
+                      }}
+                      className="left floated content"
+                    >
+                      {"Aufgabe " + (index + 1)}
+                    </div>
+                    <button
+                      className="ui small icon button"
+                      style={{ padding: "0.5em" }}
+                      onClick={() => {
+                        history.push(`/homework/homework/${task.id}/delete`);
+                      }}
+                    >
+                      <i className="trash alternate outline icon"></i>
+                    </button>
+                  </h4>
                 </div>
                 <HoverSegment
                   onClick={() => {
@@ -93,29 +130,41 @@ class Exam extends Component {
                   className="ui segment"
                 >
                   <div>
-                    <span
-                      style={{ textAlign: "center", float: "left" }}
-                      className="meta"
-                    >
-                      {remainingDays.time + remainingDays.unit}
-                    </span>
-                    <div className="ui header">
-                      <h3 style={{ textAlign: "center" }}>{task.title}</h3>
-                    </div>
+                    <header className="ui center aligned header">
+                      <h3
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <div
+                          style={{
+                            paddingRight: "10px",
+                            color: !task.completed ? "black" : "white",
+                            textShadow: task.completed
+                              ? "-0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black"
+                              : "none"
+                          }}
+                          className="content"
+                        >
+                          {task.title}
+                        </div>
+                        <label
+                          className={
+                            remainingDays.unit === "h" || remainingDays.time < 2
+                              ? " ui red right floated label "
+                              : "ui right floated label"
+                          }
+                        >
+                          {remainingDays.time + remainingDays.unit}
+                        </label>
+                      </h3>
+                    </header>
                   </div>
 
                   <div className="content">{task.description}</div>
                 </HoverSegment>
-
-                <button
-                  className="ui right attached icon button"
-                  onClick={() => {
-                    history.push(`/homework/homework/${task.id}/delete`);
-                  }}
-                >
-                  <i className="trash alternate outline icon"></i>
-                </button>
-
                 <br />
               </div>
             );
