@@ -37,7 +37,7 @@ class ExamList extends Component {
                 }}
               >
                 <div className="header">{exam.subject}</div>
-                <div className="meta">{"Till " + formatDate(exam.date)}</div>
+                <div className="meta">{"Bis zum " + formatDate(exam.date)}</div>
                 <div className="description">
                   <div className="ui relaxed divided list">
                     {exam.tasks.map(index => {
@@ -115,7 +115,7 @@ class ExamList extends Component {
           <div>
             <header className="ui header">
               <h1 style={{ paddingLeft: "10px" }}>
-                Ihre Klausuren
+                Deine Klausuren
                 <div
                   className="ui button"
                   style={{ marginLeft: "10px" }}
@@ -123,7 +123,7 @@ class ExamList extends Component {
                     history.push("/exams/newExam");
                   }}
                 >
-                  Neue Klausuren
+                  Neue Klausur
                 </div>
               </h1>
             </header>

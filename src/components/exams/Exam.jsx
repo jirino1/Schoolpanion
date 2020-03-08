@@ -65,9 +65,9 @@ class Exam extends Component {
               >
                 {exam.subject + "-Klausur"}
               </div>
-              <span className="ui icon buttons">
+              <span style={{ marginTop: "1px" }} className="ui icon buttons">
                 <button
-                  style={{ padding: "0.6em" }}
+                  style={{ padding: "0.6em", border: "none" }}
                   className="ui icon button"
                   id={exam.id}
                   onClick={() => {
@@ -77,7 +77,7 @@ class Exam extends Component {
                   <i className="edit icon"></i>
                 </button>
                 <button
-                  style={{ padding: "0.6em" }}
+                  style={{ padding: "0.6em", border: "none" }}
                   className="ui icon button"
                   id={exam.id}
                   onClick={() => {

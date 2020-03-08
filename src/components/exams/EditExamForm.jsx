@@ -111,58 +111,129 @@ class EditExamForm extends Component {
             history.push("/exams");
           }}
           validate={values => {
-            const errors = {};
+            let errors = {};
             if (!values.subject) {
-              errors.subject = "Required";
+              errors.subject = "Bitte geben sie ein Fach an";
             }
             if (!values.date) {
-              errors.date = "Required";
+              errors.date = "Bitte geben sie ein gültiges Datum ein";
+            }
+
+            for (let i = 0; i < values.tasks.length; i++) {
+              if (!errors.tasks) {
+                errors.tasks = [];
+              }
+              errors.tasks[i] = {};
+              if (!values.tasks[i].title) {
+                errors.tasks[i].title = "Bitte geben sie einen Titel ein";
+              }
+              if (!values.tasks[i].date) {
+                errors.tasks[i].date = "Bitte geben sie ein gültiges Datum ein";
+              }
+            }
+            let noErrors = true;
+            if (errors.tasks !== undefined) {
+              for (let i = 0; i < errors.tasks.length; i++) {
+                if (Object.getOwnPropertyNames(errors.tasks[i]).length !== 0) {
+                  noErrors = false;
+                }
+              }
+            }
+            if (!errors.subject && !errors.date && noErrors) {
+              return {};
             }
             return errors;
           }}
-          render={({ values, errors, touched, handleChange, handleBlur }) => (
+        >
+          {({ values, errors, touched, handleChange, handleBlur }) => (
             <Form>
-              <div className="ui labeled input">
-                <label className="ui label">Fach: </label>
-                <select
-                  className="ui search dropdown"
+              <div>
+                <div
                   style={{
-                    borderTopRightRadius: "5px",
-                    borderBottomRightRadius: "5px",
-                    border: "none"
+                    paddingTop: "0.5px",
+                    backgroundColor: "white"
                   }}
-                  name="subject"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.subject || ""}
+                  className="ui labeled input"
                 >
-                  <option
-                    style={{ color: "light grey" }}
-                    defaultValue
-                    hidden
-                    key={""}
+                  <label
+                    className={
+                      errors.subject && touched.subject
+                        ? "ui red label"
+                        : "ui label"
+                    }
                   >
-                    Fach...
-                  </option>
-                  ;
-                  {this.props.table.subjects.map(subject => {
-                    return <option key={subject}>{subject}</option>;
-                  })}
-                </select>
-                {errors.subject && touched.subject && errors.subject}
+                    Fach:{" "}
+                  </label>
+                  <select
+                    className={
+                      errors.subject && touched.subject
+                        ? "ui error search dropdown"
+                        : "ui search dropdown"
+                    }
+                    style={{
+                      borderTopRightRadius: "5px",
+                      borderBottomRightRadius: "5px",
+                      border: "none"
+                    }}
+                    name="subject"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.subject || ""}
+                  >
+                    <option
+                      style={{ color: "light grey" }}
+                      defaultValue
+                      hidden
+                      key={""}
+                    >
+                      Fach...
+                    </option>
+                    ;
+                    {this.props.table.subjects.map(subject => {
+                      return <option key={subject}>{subject}</option>;
+                    })}
+                  </select>
+                </div>
+                {errors.subject && touched.subject ? (
+                  <div style={{ color: "red" }}>{errors.subject}</div>
+                ) : null}
               </div>
+
               <p />
-              <div className="ui labeled input">
-                <label className="ui label">Datum: </label>
-                <input
-                  type="date"
-                  name="date"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.date || ""}
-                />
-                {errors.date && touched.date && errors.date}
+              <div>
+                <div
+                  style={{
+                    paddingLeft: "0.6px",
+                    paddingTop: "0.6px"
+                  }}
+                  className={
+                    errors.date && touched.date
+                      ? "ui labeled error input"
+                      : "ui labeled input"
+                  }
+                >
+                  <label
+                    className={
+                      errors.date && touched.date ? "ui red label" : "ui label"
+                    }
+                  >
+                    Datum:{" "}
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.date || ""}
+                  />
+                </div>
+                {errors.date && touched.date ? (
+                  <div style={{ color: "red" }}>{errors.date}</div>
+                ) : (
+                  <></>
+                )}
               </div>
+
               <p />
               <h3 className="ui header">Aufgaben hinzufügen</h3>
               <FieldArray name="tasks">
@@ -171,6 +242,30 @@ class EditExamForm extends Component {
                     {values.tasks && values.tasks.length > 0 ? (
                       <div>
                         {values.tasks.map((task, index) => {
+                          let dateError = false;
+                          let titleError = false;
+                          if (
+                            errors &&
+                            errors.tasks &&
+                            errors.tasks[index] &&
+                            errors.tasks[index].title &&
+                            touched.tasks &&
+                            touched.tasks[index] &&
+                            touched.tasks[index].title
+                          ) {
+                            titleError = true;
+                          }
+                          if (
+                            errors &&
+                            errors.tasks &&
+                            errors.tasks[index] &&
+                            errors.tasks[index].date &&
+                            touched.tasks &&
+                            touched.tasks[index] &&
+                            touched.tasks[index].date
+                          ) {
+                            dateError = true;
+                          }
                           return (
                             <div key={index}>
                               <div className="ui horizontal divider header">
@@ -201,62 +296,74 @@ class EditExamForm extends Component {
                                   </span>
                                 </h4>
                               </div>
+
                               <div
                                 style={{ display: "flex", marginBottom: "5px" }}
                                 key={index}
                               >
-                                <div
-                                  style={{
-                                    paddingLeft: "0.6px"
-                                  }}
-                                  className="ui labeled input"
-                                >
-                                  <label className="ui label">Titel: </label>
-                                  <Field
-                                    name={`tasks[${index}].title]`}
-                                    value={task.title || ""}
-                                  />
+                                <div>
+                                  <div
+                                    style={{
+                                      paddingLeft: "0.6px"
+                                    }}
+                                    className={
+                                      titleError
+                                        ? "ui labeled error input"
+                                        : "ui labeled input"
+                                    }
+                                  >
+                                    <label
+                                      className={
+                                        titleError
+                                          ? "ui light red label"
+                                          : "ui label"
+                                      }
+                                    >
+                                      Titel:{" "}
+                                    </label>
+                                    <Field
+                                      name={`tasks[${index}].title]`}
+                                      value={task.title || ""}
+                                    />
+                                  </div>
+                                  {titleError ? (
+                                    <div style={{ color: "red" }}>
+                                      {errors.tasks[index].title}
+                                    </div>
+                                  ) : null}
                                 </div>
-                                {errors &&
-                                errors.tasks !== null &&
-                                errors.tasks !== undefined &&
-                                errors.tasks[index] !== null &&
-                                errors.tasks[index] !== undefined &&
-                                typeof errors.tasks[index].title === "string" &&
-                                touched.tasks &&
-                                touched.tasks[index] !== null &&
-                                touched.tasks[index] !== undefined &&
-                                typeof touched.tasks[index].title ===
-                                  "boolean" ? (
-                                  <span>{errors.tasks[index].title}</span>
-                                ) : null}
-                                <div
-                                  style={{
-                                    marginLeft: "5px",
-                                    paddingRight: "0.5px"
-                                  }}
-                                  className="ui labeled input"
-                                >
-                                  <label className="ui label">Datum: </label>
-                                  <Field
-                                    name={`tasks[${index}].date`}
-                                    type="date"
-                                    value={task.date || ""}
-                                  />
+                                <div>
+                                  <div
+                                    style={{
+                                      marginLeft: "4.9px"
+                                    }}
+                                    className={
+                                      dateError
+                                        ? "ui labeled error input"
+                                        : "ui labeled input"
+                                    }
+                                  >
+                                    <label
+                                      className={
+                                        dateError
+                                          ? "ui light red label"
+                                          : "ui label"
+                                      }
+                                    >
+                                      Datum:{" "}
+                                    </label>
+                                    <Field
+                                      name={`tasks[${index}].date`}
+                                      type="date"
+                                      value={task.date || ""}
+                                    />
+                                  </div>
+                                  {dateError ? (
+                                    <div style={{ color: "red" }}>
+                                      {errors.tasks[index].date}
+                                    </div>
+                                  ) : null}
                                 </div>
-                                {errors &&
-                                errors.tasks !== null &&
-                                errors.tasks !== undefined &&
-                                errors.tasks[index] !== null &&
-                                errors.tasks[index] !== undefined &&
-                                typeof errors.tasks[index].date === "string" &&
-                                touched.tasks &&
-                                touched.tasks[index] !== null &&
-                                touched.tasks[index] !== undefined &&
-                                typeof touched.tasks[index].date ===
-                                  "boolean" ? (
-                                  <span>{errors.tasks[index].date}</span>
-                                ) : null}
                               </div>
                               <textarea
                                 name={`tasks[${index}].description]`}
@@ -264,8 +371,9 @@ class EditExamForm extends Component {
                                 value={task.description || ""}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                className="field"
+                                className="ui textarea"
                               ></textarea>
+
                               <br />
                             </div>
                           );
@@ -307,15 +415,17 @@ class EditExamForm extends Component {
               </FieldArray>
             </Form>
           )}
-        />
+        </Formik>
       </div>
     );
   }
 
   render() {
+    console.log(this.props);
     if (
       !this.props.tasks.list ||
       !this.props.exams.exam ||
+      this.props.exams.exam.id !== parseInt(this.props.match.params.id) ||
       this.props.tasks.nextID === null ||
       !this.props.table.subjects
     ) {

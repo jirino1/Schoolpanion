@@ -22,7 +22,11 @@ export default function HomeworkCard(props) {
       </div>
       <div className="ui bottom attached collapsing small icon buttons">
         <button
-          style={props.task.completed ? { backgroundColor: "grey" } : undefined}
+          style={
+            props.task.completed
+              ? { backgroundColor: "grey", border: "none" }
+              : { border: "none" }
+          }
           className="ui small icon button"
           onClick={async () => {
             await props.owner.props.markDone(props.task.id);
@@ -31,6 +35,7 @@ export default function HomeworkCard(props) {
           <i className="check icon"></i>
         </button>
         <button
+          style={{ border: "none" }}
           className="ui small icon button"
           id={props.task.id}
           onClick={() => {
@@ -40,7 +45,8 @@ export default function HomeworkCard(props) {
           <i className="edit icon"></i>
         </button>
         <button
-          className="ui small icon button"
+          style={{ border: "none" }}
+          className="ui small negative icon button"
           id={props.task.id}
           onClick={async () =>
             history.push(`/homework/homework/${props.task.id}/delete`)

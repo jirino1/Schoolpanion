@@ -114,7 +114,7 @@ class EditHomework extends Component {
       return (
         <div className="ui container">
           <header className="ui header">
-            <h1>{+task.subject + "-Aufgabe bearbeiten"}</h1>
+            <h1>{task.subject + "-Aufgabe bearbeiten"}</h1>
           </header>
           <div className="ui labeled input">
             <div className="ui label">Fach: </div>

@@ -2,17 +2,32 @@ body {
   padding-top: 60px;
   padding-bottom: 20px;
   background-color: #f0e9d7;
+  transition: all 0.2s;
+}
+.ui.buttons {
+  margin-left: 7px;
+  border: 1pt solid #505050;
+  border-radius: 6px;
 }
 .ui.button {
+  margin-left: 7px;
   border: 1pt solid #505050;
+  border-radius: 6px;
 }
 .ui.input {
   border: 1pt solid #505050;
   border-radius: 6px;
-  height: 41.65px;
+  /* width: 150px; */
+  padding: 0.2px;
+  /* display: flexbox; */
 }
 .ui.link.card {
+  border-left: 1pt solid #505050;
   border-top: 1pt solid #505050;
   border-right: 1pt solid #505050;
+}
+.ui.link.card:hover {
   border-left: 1pt solid #505050;
+  border-top: 1pt solid #505050;
+  border-right: 1pt solid #505050;
 }

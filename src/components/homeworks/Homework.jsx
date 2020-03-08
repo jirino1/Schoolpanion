@@ -57,19 +57,19 @@ class Homework extends Component {
             >
               {task.subject + "-Aufgabe"}
             </div>
-            <span className="ui icon buttons">
+            <span style={{ marginTop: "1px" }} className="ui icon buttons">
               <button
-                style={{ padding: "0.6em" }}
+                style={{ padding: "0.6em", border: "none" }}
                 className="ui icon button"
                 id={task.id}
                 onClick={() => {
-                  history.push(`/tasks/task/${task.id}/edit`);
+                  history.push(`/homework/homework/${task.id}/edit`);
                 }}
               >
                 <i className="edit icon"></i>
               </button>
               <button
-                style={{ padding: "0.6em" }}
+                style={{ padding: "0.6em", border: "none" }}
                 className="ui icon button"
                 id={task.id}
                 onClick={() => {

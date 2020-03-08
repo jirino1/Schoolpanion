@@ -126,7 +126,9 @@ class MainPage extends Component {
                   <div className="ui small icon buttons">
                     <button
                       style={
-                        task.completed ? { backgroundColor: "grey" } : undefined
+                        task.completed
+                          ? { backgroundColor: "grey" }
+                          : { border: "none" }
                       }
                       className="ui small icon button"
                       onClick={async e => {
@@ -139,6 +141,7 @@ class MainPage extends Component {
                       <i className="check icon"></i>
                     </button>
                     <button
+                      style={{ border: "none" }}
                       className="ui small icon button"
                       id={task.id}
                       onClick={e => {
@@ -153,6 +156,7 @@ class MainPage extends Component {
                       <i className="edit icon"></i>
                     </button>
                     <button
+                      style={{ border: "none" }}
                       className="ui small icon button"
                       id={task.id}
                       onClick={async e => {
