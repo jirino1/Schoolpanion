@@ -17,9 +17,7 @@ body {
 .ui.input {
   border: 1pt solid #505050;
   border-radius: 6px;
-  /* width: 150px; */
   padding: 0.2px;
-  /* display: flexbox; */
 }
 .ui.link.card {
   border-left: 1pt solid #505050;

@@ -116,9 +116,22 @@ class EditHomework extends Component {
           <header className="ui header">
             <h1>{task.subject + "-Aufgabe bearbeiten"}</h1>
           </header>
-          <div className="ui labeled input">
-            <div className="ui label">Fach: </div>
+          <div
+            style={{ paddingRight: "1px", paddingBottom: "0.6px" }}
+            className={
+              this.state.emptySubject
+                ? "ui labeled input error"
+                : "ui labeled input"
+            }
+          >
+            <div
+              className={this.state.emptySubject ? "ui red label" : "ui label"}
+            >
+              Fach:{" "}
+            </div>
+
             <Dropdown
+              error={this.state.emptySubject}
               defaultValue={task.subject}
               search
               selection
@@ -135,7 +148,9 @@ class EditHomework extends Component {
             }
             style={{ marginTop: "5px", marginBottom: "5px" }}
           >
-            <div className="ui label">Datum: </div>
+            <div className={this.state.emptyDate ? "ui red label" : "ui label"}>
+              Datum:{" "}
+            </div>
             <input
               type="date"
               placeholder="Due to"
@@ -152,7 +167,9 @@ class EditHomework extends Component {
             }
             style={{ marginBottom: "5px" }}
           >
-            <div className="ui label">Titel: </div>
+            <div className={this.state.emptyTask ? "ui red label" : "ui label"}>
+              Titel:{" "}
+            </div>
             <input
               type="text"
               placeholder="Title"

@@ -94,21 +94,35 @@ class CreateHomeworkForm extends Component {
         ></Modal>
       );
     } else {
-      // console.log(this.state);
+      console.log(this.state);
       return (
         <div className="ui container">
           <header className="ui header">
             <h1>Hausaufgabe erstellen</h1>
           </header>
-          <div className="ui label">Fach: </div>
-          <Dropdown
-            placeholder="Subject..."
-            search
-            selection
-            options={this.optionmapper()}
-            onChange={this.handleChange}
-            value={this.state.subject}
-          />
+          <div
+            style={{ paddingRight: "1px", paddingBottom: "0.6px" }}
+            className={
+              this.state.emptySubject
+                ? "ui labeled input error"
+                : "ui labeled input"
+            }
+          >
+            <div
+              className={this.state.emptySubject ? "ui red label" : "ui label"}
+            >
+              Fach:{" "}
+            </div>
+            <Dropdown
+              error={this.state.emptySubject}
+              placeholder="Subject..."
+              search
+              selection
+              options={this.optionmapper()}
+              onChange={this.handleChange}
+              value={this.state.subject}
+            />
+          </div>
           <br />
           <div
             className={
@@ -116,9 +130,15 @@ class CreateHomeworkForm extends Component {
                 ? "ui labeled input error"
                 : "ui labeled input"
             }
-            style={{ marginTop: "5px", marginBottom: "5px" }}
+            style={{
+              marginTop: "5px",
+              marginBottom: "5px",
+              paddingBottom: "0.6px"
+            }}
           >
-            <div className="ui label">Datum: </div>
+            <div className={this.state.emptyDate ? "ui red label" : "ui label"}>
+              Datum:{" "}
+            </div>
             <input
               type="date"
               placeholder="Due to"
@@ -134,7 +154,9 @@ class CreateHomeworkForm extends Component {
             }
             style={{ marginBottom: "5px" }}
           >
-            <div className="ui label">Titel: </div>
+            <div className={this.state.emptyTask ? "ui red label" : "ui label"}>
+              Titel:{" "}
+            </div>
             <input
               type="text"
               placeholder="Aufgabe"
@@ -143,6 +165,7 @@ class CreateHomeworkForm extends Component {
           </div>
           <br />
           <textarea
+            placeholder="Beschreibung (optional"
             onChange={e => {
               this.setState({ description: e.target.value });
             }}
