@@ -4,6 +4,7 @@ import { formatDate } from "../../helpers/";
 import history from "../../history";
 
 export default function HomeworkCard(props) {
+  //ui card für Hausaufgaben
   return (
     <div className={props.isLink ? "ui link card" : "ui card"}>
       <div

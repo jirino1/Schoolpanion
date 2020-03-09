@@ -23,12 +23,8 @@ export default (state = initialState, action) => {
       const task = state.list.find(t => t.id === id);
       return { ...state, task: task };
     case "MARK_DONE":
-      // console.log(state.list);
-      // console.log(action.payload);
       const id2 = Number.parseInt(action.payload);
-      console.log(id2);
       const task2 = state.list.find(t => t.id === id2);
-      console.log(task2);
       if (task2.completed) {
         task2.completed = false;
       } else {
@@ -36,7 +32,6 @@ export default (state = initialState, action) => {
       }
       return { ...state, task: task2 };
     case "CREATE_TASK":
-      console.log(action.payload);
       let idNew2 = 0;
       for (let i = 0; i < state.list.length; i++) {
         if (idNew2 < state.list[i].id) {
@@ -44,7 +39,6 @@ export default (state = initialState, action) => {
         }
       }
       const newTask = { id: idNew2 + 1, ...action.payload };
-      //console.log(state.list)
       let newList = state.list;
       newList.push(newTask);
       return { ...state, list: newList };
@@ -63,15 +57,12 @@ export default (state = initialState, action) => {
       task3.title = action.payload.task.title;
       task3.subject = action.payload.task.subject;
       task3.date = action.payload.task.date;
-      console.log(action.payload);
       task3.description = action.payload.task.description;
       for (let i = 0; i < state.list.length; i++) {
         if (state.list[i].id === id3) {
           newList3[i] = task3;
         }
       }
-
-      console.log(task3);
       return { ...state, list: newList3 };
 
     default:

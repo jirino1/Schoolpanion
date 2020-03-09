@@ -33,6 +33,7 @@ class MainPage extends Component {
     if (this.props.exams.list === null) {
       await this.props.getExams();
     }
+    //Anstehende Aufgaben und erledigte Aufgaben trennen
     this.mapUpcomingTasks();
     this.mapDoneTasks();
   }
@@ -56,6 +57,7 @@ class MainPage extends Component {
         <header style={{ textAlign: "center" }} className="ui header">
           <h1>Willkommen zurück!</h1>
         </header>
+        {/* Akkordeon */}
         <MyAccordion
           content={[
             this.props.tasks.list.length !== 0
@@ -72,6 +74,7 @@ class MainPage extends Component {
     );
   }
   renderTasks(tasks) {
+    //Tabelle, welche anstehende Aufgaben anzeigt
     return (
       <table
         style={{ textAlign: "left", padding: "15px" }}
@@ -87,7 +90,6 @@ class MainPage extends Component {
           </tr>
         </thead>
         <tbody>
-          {console.log(tasks)}
           {tasks.map(task => {
             const remainingDays = getRemainingDays(task.date);
             return (
@@ -162,7 +164,6 @@ class MainPage extends Component {
                       onClick={async e => {
                         e.stopPropagation();
                         history.push(`/homework/homework/${task.id}/delete`);
-                        // this.mapUpcomingTasks();
                       }}
                     >
                       <i className="trash alternate outline icon"></i>

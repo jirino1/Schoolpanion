@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getTableData, setTableData, getTasks, setTimes } from "../../actions";
 import { startOfToday, startOfWeek, addDays } from "date-fns";
-// import TimePicker from "react-time-picker";
 import { isSameDay } from "date-fns/esm";
 import { Popup } from "semantic-ui-react";
 
@@ -14,8 +13,8 @@ class Table extends Component {
     super(props);
     this.state = {
       days: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"],
-      isDoubleClickedArray: generateFalseArray(11, 5),
-      timeDoubleClicks: generateFalseArray(11, 1)
+      isDoubleClickedArray: generateFalseArray(11, 5), //11 Stunden, 5 Tage => Array mit 11x5 falsch, wenn ein Feld true ist, soll dort ein Input erscheinen
+      timeDoubleClicks: generateFalseArray(11, 1) //11 Stunden => 11x1 Array
     };
     this.refOne = React.createRef();
     this.refTwo = React.createRef();
@@ -28,21 +27,6 @@ class Table extends Component {
       await this.props.getTasks();
     }
   }
-  getTableTime(index) {
-    let time1 = 8 + 0.75 * index;
-    let time2 = 8 + 0.75 * (index + 1);
-    let time1minutes = (time1 - Math.floor(time1)) * 60;
-    if (time1minutes === 0) {
-      time1minutes = "00";
-    }
-    time1 = Math.floor(time1) + ":" + time1minutes;
-    let time2minutes = (time2 - Math.floor(time2)) * 60;
-    if (time2minutes === 0) {
-      time2minutes = "00";
-    }
-    time2 = Math.floor(time2) + ":" + time2minutes;
-    return { time1, time2 };
-  }
   render() {
     if (
       !this.props.table.tableData ||
@@ -51,8 +35,9 @@ class Table extends Component {
     ) {
       return <div>Lädt...</div>;
     }
-    const startWeek = addDays(startOfWeek(startOfToday()), 1);
+    const startWeek = addDays(startOfWeek(startOfToday()), 1); //Berechne den Anfangstag der aktuellen Woche
     return (
+      // wenn Tabelle lediglich Inhalte darstellen soll, dann ist sie disabled
       <div className={this.props.disabled ? "" : "ui container"}>
         {this.props.disabled ? (
           ""
@@ -64,6 +49,7 @@ class Table extends Component {
           </header>
         )}
         <table
+          //wenn man auf die Tabelle klickt, werden die Inputs deaktiviert
           onClick={e =>
             this.setState({
               isDoubleClickedArray: generateFalseArray(11, 5),
@@ -74,6 +60,7 @@ class Table extends Component {
           className="ui unstackable fixed celled table"
         >
           <thead className="ui cell">
+            {/* Wochentage als Überschriften */}
             <tr>
               <th key={0}></th>
               {this.state.days.map((day, index) => {
@@ -92,11 +79,13 @@ class Table extends Component {
                     onClick={e => {
                       if (this.state.timeDoubleClicks[hour]) {
                         e.stopPropagation();
+                        //wenn man auf das Feld mit Input klickt, soll dieser Input nicht deaktiviert werden
                       }
                     }}
                     className="ui cell"
                     key={0}
                     onDoubleClick={
+                      //Aktiviere den Input, auf dessen Feld doubleclicked wurde
                       this.props.disabled
                         ? undefined
                         : () => {
@@ -110,14 +99,12 @@ class Table extends Component {
                   >
                     <b>{index + 1 + "."}</b>
                     <br />
-                    {/* {this.getTableTime(index).time1 +
-                      "-" +
-                      this.getTableTime(index).time2} */
-                    this.state.timeDoubleClicks[hour] ? (
+                    {this.state.timeDoubleClicks[hour] ? (
                       <div
                         style={{ width: "90%", height: "30%" }}
                         className="ui small inputs"
                       >
+                        {/* Zwei Inputs, Start- und Endzeit */}
                         <DoubleClickInput
                           ref={this.refOne}
                           autoFocus
@@ -141,6 +128,7 @@ class Table extends Component {
                       </div>
                     ) : (
                       <div>
+                        {/* Wenn keine Zeiten definiert sind, ??? einblenden */}
                         {times && times.time1 && times.time2
                           ? times.time1 + " - " + times.time2
                           : "???"}
@@ -152,6 +140,7 @@ class Table extends Component {
                     const task = this.props.tasks.list.find(
                       t => t.subject === subject
                     );
+                    //Wenn an einem Tag eine Aufgabe existiert, wessen Fach man an dem Tag auch hätte, soll Popup aktiviert werden
                     let isDisabled = true;
                     if (task) {
                     }
@@ -163,6 +152,7 @@ class Table extends Component {
                         key={index}
                         content={
                           task ? (
+                            //Das Popup soll Datum, Fach und Titel beinhalten
                             <div>
                               <div className="content">
                                 <div className="header">
@@ -189,6 +179,7 @@ class Table extends Component {
                         }
                         disabled={isDisabled}
                         trigger={
+                          //Die Zelle der Tabelle soll Popup auslösen
                           <td
                             onClick={e => {
                               if (

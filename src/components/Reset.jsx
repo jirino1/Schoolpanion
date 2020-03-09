@@ -8,6 +8,7 @@ class Reset extends Component {
     this.state = { confirm: false };
   }
   renderActions() {
+    //erste Bestätigung
     return (
       <>
         <button
@@ -30,6 +31,7 @@ class Reset extends Component {
     );
   }
   renderConfirm() {
+    //Bestätigung bestätigen
     return (
       <>
         <button

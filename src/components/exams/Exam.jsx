@@ -35,6 +35,7 @@ class Exam extends Component {
     const matchID = this.props.match.params.id;
     console.log(exam);
     if (exam === undefined || matchID === undefined) {
+      //Wenn gesuchte Klausur nicht existiert
       return (
         <Modal
           title="Fehler"
@@ -49,6 +50,7 @@ class Exam extends Component {
     } else {
       return (
         <div className="ui container">
+          {/* Header mit Buttons */}
           <header className="ui center aligned header">
             <h1
               style={{
@@ -89,7 +91,7 @@ class Exam extends Component {
               </span>
             </h1>
           </header>
-
+          {/* Nicht erledigte Sachen zuerst, danach nach ID sortieren */}
           {sortByCompleted(sortById(tasks)).map((task, index) => {
             const remainingDays = getRemainingDays(task.date);
             return (
@@ -120,7 +122,7 @@ class Exam extends Component {
                     </button>
                   </h4>
                 </div>
-                <HoverSegment
+                <HoverSegment //wenn Mauszeiger drüebr ist, dies visualisieren
                   onClick={() => {
                     this.props.markDone(task.id);
                   }}

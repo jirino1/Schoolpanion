@@ -5,6 +5,7 @@ import HomeworkCard from "./HomeworkCard";
 import history from "../../history";
 
 class HomeworkList extends Component {
+  //rendern von allen Hausaufgaben
   constructor(props) {
     super(props);
     this.deleteTask = this.deleteTask.bind(this);

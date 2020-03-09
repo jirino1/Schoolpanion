@@ -7,16 +7,10 @@ import history from "../../history";
 import Modal from "../Modal";
 
 class Homework extends Component {
-  // constructor(props){
-  //   super(props);
-  // }
   async componentDidMount() {
     if (this.props.tasks.list === null) {
       await this.props.getTasks();
     }
-
-    // Hier wird die Action ausgelöst,
-    // die das To-Do lädt
     const { id } = this.props.match.params;
     this.props.getTask(id);
   }

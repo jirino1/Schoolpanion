@@ -5,6 +5,7 @@ import history from "../../history";
 import { getTask, deleteTask, deleteTaskOfExam } from "../../actions";
 
 class DeleteTask extends React.Component {
+  //Modal fürs Tasks löschen
   componentDidMount() {
     this.props.getTask(this.props.match.params.id);
   }

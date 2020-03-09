@@ -6,6 +6,7 @@ import { getExam, deleteTask, deleteExam } from "../../actions";
 
 class DeleteExam extends React.Component {
   componentDidMount() {
+    //Daten abrufen
     this.props.getExam(this.props.match.params.id);
     if (this.props.tasks.list === null) {
       this.props.getTasks();
@@ -14,7 +15,7 @@ class DeleteExam extends React.Component {
 
   renderActions() {
     const { id } = this.props.match.params;
-
+    //Buttons für das Modal rendern
     return (
       <React.Fragment>
         <button
@@ -40,6 +41,7 @@ class DeleteExam extends React.Component {
   }
 
   renderContent() {
+    //Wenn Props geladen wurden, spezifisch nach Klausur fragen
     if (!this.props.exams.exam) {
       return "Sind sie sich sicher, dass sie diese Klausur löschen wollen?";
     }

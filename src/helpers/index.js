@@ -68,6 +68,7 @@ export const HoverSegment = styled.div`
       0 2px 10px 0 rgba(34, 36, 38, 0.15);
   }
 `;
+//Arrays generieren, welche zweidimensionale Arrays mit 'false' füllen
 export function generateFalseArray(length, width) {
   let a = [];
   if (width !== 1) {

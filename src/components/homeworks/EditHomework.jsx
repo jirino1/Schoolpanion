@@ -9,6 +9,7 @@ import { noSubjects } from "../../helpers";
 import HelpButton from "../HelpButton";
 
 class EditHomework extends Component {
+  //Hausaufgaben bearbeiten
   constructor(props) {
     super(props);
     this.state = { subject: null, date: null, title: null };
@@ -73,7 +74,6 @@ class EditHomework extends Component {
     this.setState({ title: event.target.value });
   }
   optionmapper() {
-    // console.log(this.props.table.subjects);
     let subjects = [];
     for (let i = 0; i < this.props.table.subjects.length; i++) {
       subjects.push({
@@ -82,13 +82,11 @@ class EditHomework extends Component {
         value: this.props.table.subjects[i]
       });
     }
-    // console.log(subjects);
     return subjects;
   }
 
   render() {
     const { task } = this.props.tasks;
-    console.log(this.state);
     if (
       !this.props.table.subjects ||
       !task ||
@@ -110,7 +108,6 @@ class EditHomework extends Component {
         ></Modal>
       );
     } else {
-      // console.log(this.state);
       return (
         <div className="ui container">
           <header className="ui header">

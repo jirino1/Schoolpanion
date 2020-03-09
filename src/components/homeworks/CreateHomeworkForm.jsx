@@ -9,6 +9,7 @@ import Modal from "../Modal";
 import HelpButton from "../HelpButton";
 
 class CreateHomeworkForm extends Component {
+  //neue Hausaufgabe erstellen
   constructor(props) {
     super(props);
     this.state = { subject: null, date: null, task: null };
@@ -27,6 +28,7 @@ class CreateHomeworkForm extends Component {
     }
   }
   async onHomeworkSubmit() {
+    //validation
     if (this.state.task === null) {
       this.setState({ emptyTask: true });
     }
@@ -49,7 +51,6 @@ class CreateHomeworkForm extends Component {
         description: this.state.description ? this.state.description : ""
       };
       await this.props.createTask({ ...homework, origin: "homework" });
-      // console.log(homework);
       history.push("/homework");
     }
   }
@@ -62,7 +63,6 @@ class CreateHomeworkForm extends Component {
     this.setState({ task: event.target.value });
   }
   optionmapper() {
-    // console.log(this.props.table.subjects);
     let subjects = [];
     for (let i = 0; i < this.props.table.subjects.length; i++) {
       subjects.push({
@@ -71,12 +71,10 @@ class CreateHomeworkForm extends Component {
         value: this.props.table.subjects[i]
       });
     }
-    // console.log(subjects);
     return subjects;
   }
 
   render() {
-    console.log(this.state);
     if (!this.props.table.subjects) {
       return <div>Lädt...</div>;
     } else if (
@@ -94,7 +92,6 @@ class CreateHomeworkForm extends Component {
         ></Modal>
       );
     } else {
-      console.log(this.state);
       return (
         <div className="ui container">
           <header className="ui header">

@@ -24,8 +24,8 @@ class ExamList extends Component {
   renderExams() {
     const { list } = this.props.exams;
     const tasks = this.props.tasks.list;
-    console.log(this.props);
     return (
+      // Ui Cards für alle Klausuren
       <div className="ui cards" style={{ padding: "15px" }}>
         {list.map(exam => {
           return (
@@ -78,6 +78,7 @@ class ExamList extends Component {
                 </div>
               </div>
               <div className="ui bottom attached collapsing small icon buttons">
+                {/* Buttons an den Cards */}
                 <button
                   style={{ border: "none" }}
                   className="ui small icon button"

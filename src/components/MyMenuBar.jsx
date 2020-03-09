@@ -1,6 +1,7 @@
 import React from "react";
 import history from "../history";
 export default function MyMenuBar() {
+  //Menüleiste
   return (
     <div className="ui inverted top fixed menu">
       <div
