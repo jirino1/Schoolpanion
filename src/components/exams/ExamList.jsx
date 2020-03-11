@@ -13,6 +13,7 @@ import { formatDate } from "../../helpers";
 
 class ExamList extends Component {
   async componentDidMount() {
+    console.log(this.props.exams);
     if (this.props.exams.list === null) {
       await this.props.getExams();
     }
@@ -77,8 +78,8 @@ class ExamList extends Component {
                   </div>
                 </div>
               </div>
+              {/* Buttons an den Cards */}
               <div className="ui bottom attached collapsing small icon buttons">
-                {/* Buttons an den Cards */}
                 <button
                   style={{ border: "none" }}
                   className="ui small icon button"
@@ -108,6 +109,7 @@ class ExamList extends Component {
   }
 
   render() {
+    console.log(this.props);
     if (this.props.exams.list === null) {
       return <div>Lädt...</div>;
     } else {

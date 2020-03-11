@@ -90,7 +90,7 @@ class MainPage extends Component {
           </tr>
         </thead>
         <tbody>
-          {tasks.map(task => {
+          {tasks.map((task, index) => {
             const remainingDays = getRemainingDays(task.date);
             return (
               <tr
@@ -125,7 +125,10 @@ class MainPage extends Component {
                 </td>
                 <td style={{ padding: "15px" }}>{task.origin}</td>
                 <td>
-                  <div className="ui small icon buttons">
+                  <div
+                    style={index === 0 ? {} : { paddingBottom: "0.6px" }}
+                    className="ui small icon buttons"
+                  >
                     <button
                       style={
                         task.completed

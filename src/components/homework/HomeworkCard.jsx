@@ -1,6 +1,6 @@
 import React from "react";
 
-import { formatDate } from "../../helpers/";
+import { formatDate } from "../../helpers";
 import history from "../../history";
 
 export default function HomeworkCard(props) {

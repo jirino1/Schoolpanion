@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Formik, Form, Field, FieldArray } from "formik";
+import { Formik } from "formik";
 
 import {
   editExam,

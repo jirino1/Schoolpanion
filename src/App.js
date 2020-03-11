@@ -1,20 +1,20 @@
 import React from "react";
 import "./App.css";
 import { Router, Route } from "react-router-dom";
-import Homework from "./components/homeworks/Homework";
-import EditHomework from "./components/homeworks/EditHomework";
-import CreateHomeworkForm from "./components/homeworks/CreateHomeworkForm";
+import Homework from "./components/homework/Homework";
+import EditHomework from "./components/homework/EditHomework";
+import CreateHomeworkForm from "./components/homework/CreateHomeworkForm";
 import DeleteExam from "./components/exams/DeleteExam";
 import MainPage from "./components/MainPage";
 import ExamList from "./components/exams/ExamList";
 import Exam from "./components/exams/Exam";
 import CreateExamForm from "./components/exams/CreateExamForm";
-import HomeworkList from "./components/homeworks/HomeworkList";
+import HomeworkList from "./components/homework/HomeworkList";
 import EditExamForm from "./components/exams/EditExamForm";
 import Table from "./components/timetable/Table";
 import history from "./history";
 import MyMenuBar from "./components/MyMenuBar";
-import DeleteTask from "./components/homeworks/DeleteTask";
+import DeleteTask from "./components/homework/DeleteTask";
 import Help from "./components/Help";
 import Reset from "./components/Reset";
 
