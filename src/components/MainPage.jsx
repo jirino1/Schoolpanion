@@ -40,11 +40,17 @@ class MainPage extends Component {
   mapUpcomingTasks() {
     let upcomingTasks = sortByDates(this.props.tasks.list);
     upcomingTasks = upcomingTasks.filter(task => !task.completed);
+    while (upcomingTasks.length > 5) {
+      upcomingTasks.pop();
+    }
     this.setState({ upcomingTasks });
   }
   mapDoneTasks() {
     let doneTasks = sortByDates(this.props.tasks.list);
     doneTasks = doneTasks.filter(task => task.completed);
+    while (doneTasks.length > 5) {
+      doneTasks.pop();
+    }
     this.setState({ doneTasks });
   }
 
