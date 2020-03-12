@@ -93,9 +93,10 @@ const Help = () => {
           zu löschen und nochmal neu zu erstellen.
         </li>
         <li>
-          LETZTE OPTION: App zurücksetzen, indem du
-          https://schoolpanion.herokuapp.com/reset aufrufst, betätigst und
-          danach die Seite neu lädst.
+          LETZTE OPTION: App zurücksetzen, indem du auf den roten{" "}
+          <i className="bug icon" />
+          -Knopf gehst oder indem du https://schoolpanion.herokuapp.com/reset
+          aufrufst, bestätigst und danach die Seite neu lädst.
         </li>
       </ol>
       Sollte das alles nicht helfen, bin ich wohl der schlechteste Entwickler
