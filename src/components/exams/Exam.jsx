@@ -31,7 +31,8 @@ class Exam extends Component {
 
   render() {
     const { exam } = this.props.exams;
-    const tasks = this.props.tasks.list;
+    let tasks = this.props.tasks.list;
+    tasks = tasks.filter(task => exam.tasks.includes(task.id));
     const matchID = this.props.match.params.id;
     console.log(exam);
     if (exam === undefined || matchID === undefined) {
