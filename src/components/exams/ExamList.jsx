@@ -69,7 +69,7 @@ class ExamList extends Component {
                             </button>
                             <div className="header">{handledTask.title}</div>
                             <div className="description">
-                              {"Till " + formatDate(handledTask.date)}
+                              {"Bis zum " + formatDate(handledTask.date)}
                             </div>
                           </div>
                         </div>
