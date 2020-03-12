@@ -98,7 +98,10 @@ class EditExamForm extends Component {
                 await this.props.editTask(newTask.id, newTask);
                 ids.push(newTask.id);
               } else {
-                await this.props.createTask(newTask);
+                await this.props.createTask({
+                  ...newTask,
+                  examID: this.props.exams.exam.id
+                });
                 ids.push(idNew);
                 idNew++;
               }

@@ -33,10 +33,9 @@ class Exam extends Component {
   render() {
     const { exam } = this.props.exams;
     let tasks = this.props.tasks.list;
-    tasks = sortByDates(tasks.filter(task => exam.tasks.includes(task.id)));
     const matchID = this.props.match.params.id;
     console.log(exam);
-    if (exam === undefined || matchID === undefined) {
+    if (exam === undefined || matchID === "undefined") {
       //Wenn gesuchte Klausur nicht existiert
       return (
         <Modal
@@ -50,6 +49,7 @@ class Exam extends Component {
     } else if (exam === null || tasks === null || exam.id === matchID) {
       return <div>Lädt...</div>;
     } else {
+      tasks = sortByDates(tasks.filter(task => exam.tasks.includes(task.id)));
       return (
         <div className="ui container">
           {/* Header mit Buttons */}
