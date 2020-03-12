@@ -19,7 +19,8 @@ const Help = () => {
         tollen Features um dir die Organisation von deinem Schulleben zu
         erleichtern. Du kannst Lernpläne für die Klausuren verwalten sowie
         Hausaufgaben und deinen Stundenplan eintragen. Auf der Hauptseite werden
-        dir bei allem Chaos kurz und kompakt die <b>5 nächsten anstehenden</b>
+        dir bei allem Chaos kurz und kompakt die{" "}
+        <b>{"5 nächsten anstehenden "}</b>
         Aufgaben von den Lernplänen und den Hausaufgaben angezeigt.
         <br />
         Anmerkung vom Entwickler: So stolz ich auch auf meine App bin: Ich bin
