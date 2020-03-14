@@ -1,12 +1,11 @@
 import React from "react";
 
-const DoubleClickInput = React.forwardRef((props, ref) => {
+const DoubleClickInput = props => {
   //Inputs, welche im Falle eines Doppelclicks ausgelöst werden
   let times = props.owner.props.table.times[props.hour];
 
   return (
     <input
-      ref={ref}
       autoFocus={props.autoFocus}
       type={props.type}
       name={props.name}
@@ -67,5 +66,5 @@ const DoubleClickInput = React.forwardRef((props, ref) => {
       }}
     />
   );
-});
+};
 export default DoubleClickInput;

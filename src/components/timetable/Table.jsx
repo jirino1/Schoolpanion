@@ -16,8 +16,6 @@ class Table extends Component {
       isDoubleClickedArray: generateFalseArray(11, 5), //11 Stunden, 5 Tage => Array mit 11x5 falsch, wenn ein Feld true ist, soll dort ein Input erscheinen
       timeDoubleClicks: generateFalseArray(11, 1) //11 Stunden => 11x1 Array
     };
-    this.refOne = React.createRef();
-    this.refTwo = React.createRef();
   }
   async componentDidMount() {
     if (!this.props.table.tableData || !this.props.table.times) {
@@ -106,7 +104,6 @@ class Table extends Component {
                       >
                         {/* Zwei Inputs, Start- und Endzeit */}
                         <DoubleClickInput
-                          ref={this.refOne}
                           autoFocus
                           type="time"
                           name={"time1"}
@@ -117,7 +114,6 @@ class Table extends Component {
                         <br />
                         <div>-</div>
                         <DoubleClickInput
-                          ref={this.refTwo}
                           className="ui small input"
                           type="time"
                           name={"time2"}
