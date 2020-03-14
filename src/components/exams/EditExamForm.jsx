@@ -70,13 +70,7 @@ class EditExamForm extends Component {
               }
             });
             let ids = [];
-            let idNew = 0;
-            for (let i = 0; i < values.tasks.length; i++) {
-              if (values.tasks[i].id && values.tasks[i].id > idNew) {
-                idNew = values.tasks[i].id;
-              }
-            }
-            idNew += 1;
+            let idNew = this.props.tasks.nextID;
             for (let i = 1; i <= values.tasks.length; i++) {
               let newTask = {
                 ...values.tasks[i - 1],
