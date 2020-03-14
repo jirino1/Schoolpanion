@@ -124,7 +124,7 @@ class Exam extends Component {
                     </button>
                   </h4>
                 </div>
-                <HoverSegment //wenn Mauszeiger drüebr ist, dies visualisieren
+                <HoverSegment //wenn Mauszeiger drüber ist, dies visualisieren
                   onClick={() => {
                     this.props.markDone(task.id);
                   }}

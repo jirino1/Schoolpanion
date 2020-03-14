@@ -138,8 +138,6 @@ class Table extends Component {
                     );
                     //Wenn an einem Tag eine Aufgabe existiert, wessen Fach man an dem Tag auch hätte, soll Popup aktiviert werden
                     let isDisabled = true;
-                    if (task) {
-                    }
                     if (task && isSameDay(new Date(task.date), theDay)) {
                       isDisabled = false;
                     }
