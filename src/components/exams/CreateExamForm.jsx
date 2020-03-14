@@ -27,18 +27,6 @@ class CreateExamForm extends Component {
       await this.props.getTasks();
     }
   }
-  optionmapper() {
-    //options für Subject-Selector
-    let subjects = [];
-    for (let i = 0; i < this.props.table.subjects.length; i++) {
-      subjects.push({
-        text: this.props.table.subjects[i],
-        key: i,
-        value: this.props.table.subjects[i]
-      });
-    }
-    return subjects;
-  }
   myForm() {
     return (
       <div>
