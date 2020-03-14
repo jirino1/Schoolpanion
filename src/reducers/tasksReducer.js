@@ -1,9 +1,7 @@
 const initialState = {
   list: null,
   task: null,
-  nextID: null,
-  position: 0,
-  tasksperpage: 20
+  nextID: null
 };
 
 export default (state = initialState, action) => {
