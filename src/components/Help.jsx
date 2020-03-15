@@ -99,10 +99,6 @@ const Help = () => {
           aufrufst, bestätigst und danach die Seite neu lädst.
         </li>
       </ol>
-      Sollte das alles nicht helfen, bin ich wohl der schlechteste Entwickler
-      aller Zeiten.
-      <br />
-      ¯\(°_o)/¯
       <br />
       <b>
         Falls der erste Schritt nicht geklappt hat, würde es mir wirklich
