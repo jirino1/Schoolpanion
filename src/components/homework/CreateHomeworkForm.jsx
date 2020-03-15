@@ -162,7 +162,7 @@ class CreateHomeworkForm extends Component {
           </div>
           <br />
           <textarea
-            placeholder="Beschreibung (optional"
+            placeholder="Beschreibung (optional)"
             onChange={e => {
               this.setState({ description: e.target.value });
             }}

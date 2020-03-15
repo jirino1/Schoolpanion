@@ -177,6 +177,7 @@ class EditHomework extends Component {
           <br />
           <textarea
             defaultValue={task.description}
+            placeholder="Beschreibung (optional)"
             onChange={e => {
               this.setState({ description: e.target.value });
             }}
