@@ -1,3 +1,10 @@
+## Schoolpanion
+
+Du hast Stress in der Schule? Für morgen die Hausaufgabe und dann musst du noch bis zur nächsten Woche Mathe lernen?
+Schoolpanion ist dann die ideale App, um deinen Schulalltag zu organisieren! Sie bietet dir einen leicht bedienbaren Klausurenplaner,
+ein vernünftiges Hausaufgabenheft und selbstverständlich auch einen intuitiven Stundenplan!
+Schreib mich unter schoolpanion@gmail.com an, wenn du Verbesserungsvorschläge und/oder Probleme mit der App hast!
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
