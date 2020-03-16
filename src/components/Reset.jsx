@@ -46,6 +46,7 @@ class Reset extends Component {
           onClick={() => {
             localStorage.clear();
             history.push("/");
+            window.location.reload();
           }}
           className="ui negative button"
         >

@@ -149,7 +149,7 @@ class CreateHomeworkForm extends Component {
                 ? "ui labeled input error"
                 : "ui labeled input"
             }
-            style={{ marginBottom: "5px" }}
+            style={{ marginBottom: "5px", paddingBottom: "0.5px" }}
           >
             <div className={this.state.emptyTask ? "ui red label" : "ui label"}>
               Titel:{" "}

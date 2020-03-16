@@ -6,7 +6,8 @@ import {
   getExams,
   markDone,
   deleteTask,
-  deleteTaskOfExam
+  deleteTaskOfExam,
+  deleteExam
 } from "../actions";
 import { sortByDates, getRemainingDays } from "../helpers";
 import MyAccordion from "./MyAccordion";
@@ -36,6 +37,28 @@ class MainPage extends Component {
     //Anstehende Aufgaben und erledigte Aufgaben trennen
     this.mapUpcomingTasks();
     this.mapDoneTasks();
+    this.props.tasks.list.forEach(async task => {
+      if (
+        getRemainingDays(task.date).time <= -14 &&
+        getRemainingDays(task.date).unit === "d"
+      ) {
+        if (task.origin === "exams") {
+          await this.props.deleteTaskOfExam(task.examID, task.id);
+        }
+        await this.props.deleteTask(task.id);
+      }
+    });
+    this.props.exams.list.forEach(async exam => {
+      if (
+        getRemainingDays(exam.date).time < -14 &&
+        getRemainingDays(exam.date).unit === "d"
+      ) {
+        exam.tasks.forEach(async task => {
+          await this.props.deleteTask(task);
+        });
+        await this.props.deleteExam(exam.id);
+      }
+    });
   }
   mapUpcomingTasks() {
     let upcomingTasks = sortByDates(this.props.tasks.list);
@@ -196,7 +219,8 @@ const mapDispatchToProps = {
   getExams,
   markDone,
   deleteTask,
-  deleteTaskOfExam
+  deleteTaskOfExam,
+  deleteExam
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

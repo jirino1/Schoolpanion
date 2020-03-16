@@ -162,7 +162,7 @@ class EditHomework extends Component {
                 ? "ui labeled input error"
                 : "ui labeled input"
             }
-            style={{ marginBottom: "5px" }}
+            style={{ marginBottom: "5px", paddingBottom: ".5px" }}
           >
             <div className={this.state.emptyTask ? "ui red label" : "ui label"}>
               Titel:{" "}
